@@ -8,8 +8,8 @@ import Head from './components/head'
 import HomePage from './pages/HomePage'
 import PostCommentsPage from './pages/PostCommentsPage'
 import PostsByCategoryPage from './pages/PostsByCategoryPage'
-import Register from './pages/RegisterPage'
 import RegisterPage from './pages/RegisterPage'
+import LoginPage from './pages/LoginPage'
 
 
 const Navigation = () => {
@@ -20,8 +20,9 @@ const Navigation = () => {
                 <Switch>
                     <Route  path="/Category/:categoryId" component = { PostsByCategoryPage } />
                     <Route exact path="/" component = { HomePage } />
-                    <Route path="/Comments/:postId" component = { PostCommentsPage } />
+                    <Route path="/PostComments/:postId" component = { PostCommentsPage } />
                     <Route path="/Register" component = { RegisterPage } />
+                    <Route path="/Login" component = { LoginPage } />
                 </Switch>
             </BrowserRouter>
         </Fragment>
