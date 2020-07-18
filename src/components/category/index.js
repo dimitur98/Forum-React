@@ -1,16 +1,16 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Category = (props) =>{
     return(
         <div class="col-md-4 media">
-            <img src="https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg" width="100" class="mr-3" alt="@category.Title" />
+            <img src={props.imageUrl} width="100" class="mr-3" alt={props.name} />
             <div class="media-body">
                 <h5 class="mt-0">
-                    <a href="@category.Url">
-                        title
-                    </a>
-                </h5>
-                description
+                    <Link to ={`/postsByCategory?id=${props.id}`}>
+                        {props.name}
+                    </Link>
+                </h5>            
             </div>
         </div>
     )

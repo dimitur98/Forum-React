@@ -5,6 +5,37 @@ import Footer from '../components/footer'
 import Category from '../components/category'
 
 class HomePage extends Component{
+  constructor(props){
+    super(props)
+
+    this.state = {
+      categories: []
+    }
+  }
+
+  getAllNotDeletedCategories = async() => {
+    const promise = await fetch('http://localhost:9999/api/category/allCategories')
+    const categories = await promise.json()
+    console.log(categories)
+    this.setState({
+      categories
+    })
+  }
+
+  renderCategories(){
+    const { categories } = this.state
+    
+    return categories.map((category) => {
+      return(
+        <Category key = {category._id } name = {category.name} imageUrl = {category.imageUrl} id = {category._id}/>
+      )
+    })
+  }
+
+  componentDidMount(){
+    this.getAllNotDeletedCategories()
+  }
+
   render(){
     return (
       <div>     
@@ -18,7 +49,7 @@ class HomePage extends Component{
                   </div>
                   <hr />
                   <div class="row">
-                      <Category />                              
+                      {this.renderCategories()}                             
                   </div>
               </main>
           </div>
