@@ -47,12 +47,9 @@ class PostCommentsPage extends Component{
                                         <div class="card-body">
                                             <article>
                                                 @Html.Raw(Model.SanitizedContent)
-                                            </article>
-
-                                            
+                                            </article>                                           
                                                 <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.hideComponent()}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
-                                                <div class="clearfix"></div>
-                                            
+                                                <div class="clearfix"></div>                                         
                                                 <Comment />
                                             </div>
                                     </div>

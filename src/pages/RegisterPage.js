@@ -1,52 +1,75 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Header from '../components/header'
 import Footer from '../components/footer'
+import Input from '../components/input'
+import ServicesToLogIn from '../components/servicesToLogIn'
+import SubmitBtn from '../components/submitBtn'
 
-const RegisterPage = () => {
-    return(
-        <div>
-            <Header />
-            <div  class='container'>
-                <h1>Register</h1>
+class RegisterPage extends Component{
+    constructor(props) {
+        super(props)
+    
+        this.state = {
+          email: "",
+          password: "",
+          rePassword: ""
+        }
+      }
+    
+      onChange = (event, type) => {
+        const newState = {}
+        newState[type] = event.target.value
+    
+        this.setState(newState)
+      }
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <form >
-                            <h4>Create a new account.</h4>
-                            <hr />
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <div class="form-group">
-                                <label>
-                                    Name:
-                                    <input name='name' class="form-control" />
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    Password:
-                                    <input name="password" class="form-control" />
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <label>
-                                    Confirm Password
-                                    <input name="confirmPassword" class="form-control" />
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
-                    </div>
-                    <div class="col-md-6 col-md-offset-2">
-                        <section>
-                            <h4>Use another service to register.</h4>
-                            <hr />            
-                        </section>
+
+    render(){
+        const {
+            email,
+            password,
+            rePassword
+          } = this.state
+
+        return(
+            <div>
+                <Header />
+                <div  class='container'>
+                    <h1>Register</h1>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form >
+                                <h4>Create a new account.</h4>
+                                <hr />
+                                <Input
+                                    value={email}
+                                    onChange={(e) => this.onChange(e, 'email')}
+                                    label="Email"
+                                    id="email"
+                                />
+                                <Input
+                                    value={password}
+                                    onChange={(e) => this.onChange(e, 'password')}
+                                    label="Password"
+                                    id="password"
+                                />
+                                <Input
+                                    value={rePassword}
+                                    onChange={(e) => this.onChange(e, 'rePassword')}
+                                    label="Repeat Password"
+                                    id="rePassword"
+                                />
+                                <SubmitBtn name='Register'/>
+                            </form>
+                        </div>
+                        <ServicesToLogIn />
                     </div>
                 </div>
+                <Footer />
             </div>
-            <Footer />
-        </div>
-    )
+        )
+    }
 }
 
 export default RegisterPage
