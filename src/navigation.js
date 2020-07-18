@@ -19,7 +19,7 @@ const Navigation = () => {
             <Head />
             <BrowserRouter>
                 <Switch>
-                    <Route  path="/Category/:categoryId" component = { PostsByCategoryPage } />
+                    <Route  path="/postsByCategory/:categoryId" component = { PostsByCategoryPage } />
                     <Route exact path="/" component = { HomePage } />
                     <Route path="/PostComments/:postId" component = { PostCommentsPage } />
                     <Route path="/Register" component = { RegisterPage } />
