@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import Header from '../components/header'
 import Footer from '../components/footer'
-import Post from '../components/post'
+import Post from '../components/posts'
 
 class PostsByCategoryPage extends Component{
     constructor(props){
@@ -29,6 +29,8 @@ class PostsByCategoryPage extends Component{
             return(
                 <Post 
                     key = {post._id}
+                    id = {post._id}
+                    content = {post.content}
                     name = {post.name} 
                     authorEmail = {post.author.email} 
                     createdOn = {post.createdOn} 
