@@ -1,7 +1,7 @@
 import React from 'react'
 import AddAnswer from '../addAnswer'
 import PostHeader from '../postHeader'
-import { EditorPropTypes } from '@tinymce/tinymce-react/lib/cjs/main/ts/components/EditorPropTypes'
+import AddComments from '../addComment'
 
 const Comment = (props) => {
     return(
@@ -11,7 +11,7 @@ const Comment = (props) => {
                             <div class="col-md-12">
                                 <div class="card mb-4">
                                     <PostHeader email = {props.email} createdOn = {props.createdOn} imageUrl = {props.imageUrl}>
-                                        <AddAnswer />
+                                        <AddAnswer showCommentInput ={props.showCommentInput}/>
                                     </PostHeader>
                                     <div class="card-body">
                                         <article>

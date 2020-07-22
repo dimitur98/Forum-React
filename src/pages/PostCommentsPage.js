@@ -19,10 +19,10 @@ class PostCommentsPage extends Component{
             subComments: []
         }
 
-        this.hideComponent = this.hideComponent.bind(this)
+        this.showCommentInput = this.showCommentInput.bind(this)
     }
 
-    hideComponent(){
+    showCommentInput(){
         this.setState({ showHideCommentFrom: !this.state.showHideCommentFrom })
     }
 
@@ -40,15 +40,7 @@ class PostCommentsPage extends Component{
         console.log(comments)
         this.setState({comments})
     }
-    getSubComments(comment){
-        console.log(comment)
-        const comments = this.state.comments
-        const subComments = comments.filter(function(c) {
-            return c.parentComment == comment._id})
-        this.setState({comments: subComments})
-        console.log(this.state.comments)
 
-    }
     renderComments(postId){  
         const comments = this.state.comments
         const subComments = comments.filter(c => c.parentComment == postId)   
@@ -64,6 +56,7 @@ class PostCommentsPage extends Component{
                         createdOn = {comment.createdOn}
                         imageUrl = {comment.author.imageUrl}
                         content = {comment.content}
+                        showCommentInput = {this.showCommentInput}
                     >
                     {this.renderComments(comment._id)}
                     </Comment>
@@ -93,13 +86,13 @@ class PostCommentsPage extends Component{
                                 <div class="col-md-12">
                                     <div class="card mb-4">
                                         <PostHeader  email = {author.email} createdOn = {author.createdOn} imageUrl = {author.imageUrl}>
-                                        <Votes votes = {post.votes}/>
+                                            <Votes votes = {post.votes}/>
                                         </PostHeader>
                                         <div class="card-body">
                                             <article>
                                                 {post.content}
                                             </article>                                           
-                                                <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.hideComponent()}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
+                                                <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput()}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
                                                 <div class="clearfix"></div>                                         
                                                 {this.renderComments(this.props.match.params.postId)}
                                         </div>

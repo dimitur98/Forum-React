@@ -4,9 +4,7 @@ module.exports = {
     get:{
         getCommentsByPostId: (req,res,next) => {
             const {postId} = req.params
-            console.log(postId)
             comment.find({post: postId}).populate('author').then((comments) => {
-                console.log(comments)
                 res.send(comments)
             }).catch(next)
         },
