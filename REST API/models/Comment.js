@@ -26,6 +26,14 @@ const commentSchema = new Schema({
         type: ObjectId,
         ref: "Post"
     },
+    content: {
+        type: String,
+        required: true
+    },
+    parentComment:{
+        type: ObjectId,
+        ref: "Comment"
+    }
     
 });
 

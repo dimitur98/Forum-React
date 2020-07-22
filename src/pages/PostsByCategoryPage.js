@@ -24,13 +24,12 @@ class PostsByCategoryPage extends Component{
 
     renderPosts(){
         const { posts } = this.state
-        console.log(this.state)
         return posts.map((post) => {
             return(
                 <Post 
                     key = {post._id}
                     id = {post._id}
-                    content = {post.content}
+                    content = {post.content.substring(0,500)+'...'}
                     name = {post.name} 
                     authorEmail = {post.author.email} 
                     createdOn = {post.createdOn} 

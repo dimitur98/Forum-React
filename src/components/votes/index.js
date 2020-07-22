@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Votes = () => {
+const Votes = (props) => {
     return(
         <div class="text-muted small ml-3">
             <form id="votesForm" method="post"></form>
@@ -9,7 +9,7 @@ const Votes = () => {
                         <i class="fa fa-thumbs-up"></i>
                     </a>
                 </div>
-                <div id="votesCount">@Model.VotesCount</div>
+                <div id="votesCount">{props.votes}</div>
                 <div>
                     <a href="#" onclick="sendVote(@Model.Id, false)">
                         <i class="fa fa-thumbs-down"></i>

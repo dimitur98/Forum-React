@@ -13,7 +13,8 @@ const PostHeader = (props) => {
                             {props.createdOn}
                         </div>
                 </div>
-                <Votes />
+                {/* <Votes votes = {props.votes}/> */}
+                {props.children}
             </div>
         </div>
     )

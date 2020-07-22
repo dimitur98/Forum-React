@@ -5,7 +5,7 @@ module.exports = {
     
     post:{
         sendMail:(req,res,next) => {
-            sgMail.setApiKey('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')
+            sgMail.setApiKey(process.env.SENDGRID_APIKEY)
 
                 const msg = {
                 to: 'dimitur.mihailov988@gmail.com',
