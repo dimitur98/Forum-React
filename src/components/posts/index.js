@@ -4,6 +4,7 @@ import { faUserEdit, faCalendarAlt, faCommentDots } from "@fortawesome/free-soli
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'font-awesome/css/font-awesome.min.css'; 
 
+
 const Post = (props) => {
     return(
         <div className="media-body">

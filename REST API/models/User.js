@@ -29,10 +29,7 @@ const userSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
-    },
-    posts: [{ type: ObjectId, ref: "Post" }],
-    comments: [{ type: ObjectId, ref: "Comment" }],
-    categories: [{ type: ObjectId, ref: "Category" }]
+    }
 });
 
 userSchema.methods = {
