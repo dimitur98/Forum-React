@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+
 import '../App.css';
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Post from '../components/posts'
+import UserContext from '../Context'
 
 class PostsByCategoryPage extends Component{
     constructor(props){
@@ -13,6 +16,7 @@ class PostsByCategoryPage extends Component{
             categoryId: ""
         }
     }
+    static contextType = UserContext
 
     getPosts = async (categoryId) => {
         const promise = await fetch(`http://localhost:9999/api/post/postsByCategory/${categoryId}`)
@@ -45,13 +49,18 @@ class PostsByCategoryPage extends Component{
     }
 
     render(){ 
-       const { categoryName } = this.props.match.params   
+       const { categoryName, categoryId } = this.props.match.params   
+       const { user } = this.context
+       
         return (
             <div>
                     <Header />
                     <div className='container'>
                         <main role="main" className="pb-3">
-                            <h1 className="display-3">Title: {categoryName}</h1>                          
+                            <h1 className="display-3">Title: {categoryName} 
+                            {user && <Link to = {`/CreatePost/${categoryId}/${user.id}`} class="btn btn-primary" style={{float: "right", marginTop:50}}>
+                                <i class="fa fa-plus"></i>&nbsp; Answer
+                            </Link>}</h1>                       
                                 {this.renderPosts()}
                             <Footer />
                         </main>

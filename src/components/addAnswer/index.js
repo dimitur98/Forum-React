@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 class AddAnswer extends Component {
     clickMe = () => {
-        console.log("a")
         this.props.showCommentInput()
     }
     render(){

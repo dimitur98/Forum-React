@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Category from '../components/category'
+import UserContext from '../Context'
 
 class HomePage extends Component{
   constructor(props){
@@ -13,7 +14,7 @@ class HomePage extends Component{
       categories: []
     }
   }
-
+  static contextType = UserContext
   getAllNotDeletedCategories = async() => {
     const promise = await fetch('http://localhost:9999/api/category/allCategories')
     const categories = await promise.json()
@@ -45,7 +46,7 @@ class HomePage extends Component{
                   <div class="text-center">
                       <h1 class="display-3">ForumSystem</h1>
 
-                      <Link to='/createCategory' class="btn btn-primary btn-lg">Add new category</Link>
+                      {this.context.loggedIn && <Link to='/CreateCategory' class="btn btn-primary btn-lg">Add new category</Link>}
                   </div>
                   <hr />
                   <div class="row">
