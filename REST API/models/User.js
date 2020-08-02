@@ -5,6 +5,7 @@ const saltRounds = 10;
 const Schema = mongoose.Schema;
 const Model = mongoose.model;
 const { String, Number, Boolean, ObjectId } = Schema.Types;
+const { v4: uuidv4 } = require('uuid');
 
 const userSchema = new Schema({
 
@@ -29,7 +30,11 @@ const userSchema = new Schema({
     imageUrl: {
         type: String,
         required: true
+    },
+    uuid:{
+        type: String
     }
+
 });
 
 userSchema.methods = {
@@ -49,6 +54,7 @@ userSchema.pre('save', function (next) {
                 next();
             });
         });
+        this.uuid = uuidv4()
         return;
     }
     next();

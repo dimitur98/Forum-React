@@ -16,7 +16,6 @@ class HomePage extends Component{
   getAllNotDeletedCategories = async() => {
     const promise = await fetch('http://localhost:9999/api/category/allCategories')
     const categories = await promise.json()
-    console.log(categories)
     this.setState({
       categories
     })

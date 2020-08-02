@@ -46,7 +46,7 @@ class RegisterPage extends Component{
                   'Content-Type': 'application/json'
               }
           }).then((user) => {
-              this.props.history.push('/')
+              this.props.history.push('/Login')
           })
       }
 
@@ -76,9 +76,6 @@ class RegisterPage extends Component{
                 <Header />
                 <div  class="center">
                     <h1>Register</h1>
-
-                    <div>
-                        <div>
                             <form onSubmit={this.handleSubmit}>
                                 <h4>Create a new account.</h4>
                                 <hr />
@@ -110,8 +107,6 @@ class RegisterPage extends Component{
                             </form>
                         </div>
                         <ServicesToLogIn />
-                    </div>
-                </div>
                 <Footer />
             </div>
         )

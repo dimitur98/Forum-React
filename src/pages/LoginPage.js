@@ -6,6 +6,8 @@ import Input from '../components/input'
 import ServicesToLogIn from '../components/servicesToLogIn'
 import LoginOptions from '../components/loginOptions'
 import SubmitBtn from '../components/submitBtn'
+import UserContext from '../Context'
+import authenticate from '../utils/authenticate'
 
 class LoginPage extends Component {
     constructor(props){
@@ -17,12 +19,34 @@ class LoginPage extends Component {
         }
     }
 
+    static contextType = UserContext
+
+
     onChange = (event, type) => {
         const newState = {}
         newState[type] = event.target.value
     
         this.setState(newState)
       }
+
+      handleSubmit = async(event) => {
+        event.preventDefault()
+
+        const{
+            email,
+            password
+        } = this.state
+        await authenticate('http://localhost:9999/api/user/login', {
+            email,
+            password
+        }, (user) => {
+            this.context.logIn(user)
+            this.props.history.push('/')
+        }, (e) => {
+            console.log(e)
+        }
+        )
+    }
 
 
     render() {
@@ -31,12 +55,11 @@ class LoginPage extends Component {
         return(
             <div>
                 <Header />
-                <div class='container'>
+                <div class='center'>
+                <div>asd</div>
                     <h1>Login</h1>
-                    <div class="row">
-                        <div class="col-md-4">
                             <section>
-                                <form id="account" method="post">
+                                <form onSubmit={this.handleSubmit}>
                                     <h4>Use a local account to log in.</h4>
                                     <hr />
                                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -51,6 +74,7 @@ class LoginPage extends Component {
                                         onChange={(e) => this.onChange(e, 'password')}
                                         label="Password"
                                         id="password"
+                                        type="password"
                                     />
                                     <SubmitBtn name='Log In' />
                                     <LoginOptions />
@@ -58,8 +82,6 @@ class LoginPage extends Component {
                             </section>      
                         </div>
                         <ServicesToLogIn />
-                    </div>
-                </div>
                 <Footer />
             </div>
         )
