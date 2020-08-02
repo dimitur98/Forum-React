@@ -11,7 +11,6 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
     document.cookie = `x-auth-token=${authToken}`
 
     const response = await promise.json()
-      console.log(response)
     if (response.email && authToken) {
       onSuccess({
         email: response.email,

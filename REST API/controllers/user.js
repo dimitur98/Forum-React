@@ -44,7 +44,7 @@ module.exports = {
                         return;
                     }
                     if(!user.isConfirmed){
-                        res.status(401).send('Not confirmed');
+                        res.send('Not confirmed');
                         return;
                     }                  
                     const token = utils.jwt.createToken({ id: user._id });

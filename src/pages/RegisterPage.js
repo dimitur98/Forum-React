@@ -4,8 +4,7 @@ import Footer from '../components/footer'
 import Input from '../components/input'
 import ServicesToLogIn from '../components/servicesToLogIn'
 import SubmitBtn from '../components/submitBtn'
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AddImage from '../components/addImage'
 
 class RegisterPage extends Component{
     constructor(props) {
@@ -49,20 +48,10 @@ class RegisterPage extends Component{
               this.props.history.push('/Login')
           })
       }
-
-      openWidget= () => {
-        const widget = window.cloudinary.createUploadWidget({
-            cloudName: "dimitur98",
-            uploadPreset: "ReactForum"
-        }, (err,res) => {
-            if(res.event === 'success'){
-                this.setState({
-                    imageUrl: res.info.url
-                })
-            }
-        })
-        widget.open()
+      setImgUrl = (imageUrl) => {
+          this.setState({imageUrl})
       }
+
     render(){
         const {
             email,
@@ -100,9 +89,7 @@ class RegisterPage extends Component{
                                     type="password"
 
                                 />
-                                <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
-                                {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}
-                                <hr/>
+                                <AddImage setImgUrl = {this.setImgUrl}/>
                                 <SubmitBtn  name='Register'/>
                             </form>
                         </div>

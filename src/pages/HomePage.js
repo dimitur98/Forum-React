@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
+import { Link } from 'react-router-dom'
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Category from '../components/category'
@@ -44,7 +45,7 @@ class HomePage extends Component{
                   <div class="text-center">
                       <h1 class="display-3">ForumSystem</h1>
 
-                      <a asp-controller="Posts" asp-action="Create" class="btn btn-primary btn-lg">Create new forum post</a>
+                      <Link to='/createCategory' class="btn btn-primary btn-lg">Add new category</Link>
                   </div>
                   <hr />
                   <div class="row">

@@ -44,16 +44,14 @@ class PostsByCategoryPage extends Component{
         this.getPosts(this.props.match.params.categoryId)
     }
 
-    render(){      
+    render(){ 
+       const { categoryName } = this.props.match.params   
         return (
             <div>
                     <Header />
                     <div className='container'>
                         <main role="main" className="pb-3">
-                            <h1 className="display-3">Title: </h1>
-                            <div className="alert alert-info">
-                                Description: 
-                            </div>
+                            <h1 className="display-3">Title: {categoryName}</h1>                          
                                 {this.renderPosts()}
                             <Footer />
                         </main>

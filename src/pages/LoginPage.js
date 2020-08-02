@@ -37,14 +37,14 @@ class LoginPage extends Component {
             password
         } = this.state
         await authenticate('http://localhost:9999/api/user/login', {
-            email,
-            password
-        }, (user) => {
-            this.context.logIn(user)
-            this.props.history.push('/')
-        }, (e) => {
-            console.log(e)
-        }
+                email,
+                password
+            }, (user) => {
+                this.context.logIn(user)
+                this.props.history.push('/')
+            }, (e) => {
+               console.log(e)
+            }
         )
     }
 
