@@ -6,6 +6,12 @@ module.exports = {
             category.find().then((categories) => {
                 res.send(categories)
             }).catch(next)
+        },
+        getCategoryById: (req,res,next) => {
+            const {categoryId} = req.params
+            category.findById(categoryId).then(c => {
+                res.send(c)
+            }).catch(next)
         }
     },
     post:{

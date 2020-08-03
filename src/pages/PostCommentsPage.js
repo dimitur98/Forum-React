@@ -3,7 +3,7 @@ import '../App.css';
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Comment from '../components/comment';
-import AddComment from '../components/addComment'
+import TinyMCEInput from '../components/tinyMCEInput'
 import PostHeader from '../components/postHeader'
 import Votes from '../components/votes'
 
@@ -100,7 +100,17 @@ class PostCommentsPage extends Component{
                                 </div>
                             </div>
                         </div>
-                        { showHideCommentFrom && <AddComment /> }
+                        <div>
+                            <form>
+                                <input type="hidden" name="PostId" value="@this.Model.Id" />
+                                <input type="hidden" name="ParentId" value="0" />
+                    
+                                { showHideCommentFrom && <TinyMCEInput /> }
+                                <div>
+                                    <input type="submit" class="btn btn-primary" value="Add comment" />
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 <Footer />
             </div>

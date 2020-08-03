@@ -4,12 +4,15 @@ import { faUserEdit, faCalendarAlt, faCommentDots } from "@fortawesome/free-soli
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'font-awesome/css/font-awesome.min.css'; 
 
+import RenderedHtmlText from '../renderedHtmlText'
+
+
 
 const Post = (props) => {
     return(
         <div className="media-body">
             <h4 className="media-heading"><Link to = {`/PostComments/${props.id}`}>{props.name}</Link></h4>
-            <p>{props.content}</p>
+            <RenderedHtmlText content = {props.content}/>
             <ul className="list-inline list-unstyled text-right">
                 <li className="list-inline-item">
                     <FontAwesomeIcon icon={faUserEdit} /> {props.authorEmail}

@@ -1,7 +1,6 @@
 import React from 'react'
 import AddAnswer from '../addAnswer'
 import PostHeader from '../postHeader'
-import AddComments from '../addComment'
 
 const Comment = (props) => {
     return(
