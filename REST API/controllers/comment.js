@@ -11,9 +11,9 @@ module.exports = {
     },
     post:{
         createComment: (req,res,next) => {
-            const {name, author, post, content, parentComment} = req.body
+            const {author, post, content, parentComment} = req.body
             const createdOn = (new Date() + "").slice(0,24)
-            comment.create({ name, author,createdOn, post,content,parentComment})
+            comment.create({ author,createdOn, post,content,parentComment})
                 .then((c) => res.send(c)).catch(next)
         }
     }

@@ -3,9 +3,10 @@ import '../App.css';
 import Header from '../components/header'
 import Footer from '../components/footer'
 import Comment from '../components/comment';
-import TinyMCEInput from '../components/tinyMCEInput'
 import PostHeader from '../components/postHeader'
 import Votes from '../components/votes'
+import TinyMCEForm from '../components/tinyMCEForm'
+import RenderedHtmlText from '../components/renderedHtmlText'
 
 class PostCommentsPage extends Component{
     constructor(){
@@ -16,14 +17,18 @@ class PostCommentsPage extends Component{
             post: {},
             author: {},
             comments:[],
-            subComments: []
+            subComments: [],
+            parentId: ""
         }
 
         this.showCommentInput = this.showCommentInput.bind(this)
     }
 
-    showCommentInput(){
-        this.setState({ showHideCommentFrom: !this.state.showHideCommentFrom })
+    showCommentInput(parentId){
+        this.setState({ 
+            showHideCommentFrom: !this.state.showHideCommentFrom,
+            parentId })
+        console.log(this.state.parentId)
     }
 
     getPostById = async (id) => {
@@ -37,15 +42,13 @@ class PostCommentsPage extends Component{
         console.log(postId)
         const promise = await fetch(`http://localhost:9999/api/comment/getComments/${postId}`)
         const comments = await promise.json()
-        console.log(comments)
         this.setState({comments})
     }
 
     renderComments(postId){  
         const comments = this.state.comments
-        const subComments = comments.filter(c => c.parentComment == postId)   
+        const subComments = comments.filter(c => c.parentComment == postId) 
         if(subComments.length == 0){return}
-        console.log(subComments)
         return subComments.map((comment) => {   
                            
         return(    
@@ -56,7 +59,7 @@ class PostCommentsPage extends Component{
                         createdOn = {comment.createdOn}
                         imageUrl = {comment.author.imageUrl}
                         content = {comment.content}
-                        showCommentInput = {this.showCommentInput}
+                        showCommentInput = {() => this.showCommentInput(comment._id)}
                     >
                     {this.renderComments(comment._id)}
                     </Comment>
@@ -64,11 +67,16 @@ class PostCommentsPage extends Component{
             ) 
         })       
     }
-    
+    redirectTo = (url) => {
+        console.log(url)
+        this.props.history.push(url)
+        console.log(this.props)
+    }
 
     componentDidMount(){
         this.getPostById(this.props.match.params.postId)
         this.getCommentsByPostId(this.props.match.params.postId)
+        this.setState({parentId: this.props.match.params.postId})
 
     }
     render(){
@@ -76,6 +84,8 @@ class PostCommentsPage extends Component{
         
         const author = this.state.author
         const post = this.state.post
+        const postId = this.props.match.params.postId
+
         return(
             <div>
                 <Header />
@@ -85,32 +95,22 @@ class PostCommentsPage extends Component{
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card mb-4">
-                                        <PostHeader  email = {author.email} createdOn = {author.createdOn} imageUrl = {author.imageUrl}>
+                                        <PostHeader  email = {author.email} createdOn = {post.createdOn} imageUrl = {author.imageUrl} >
                                             <Votes votes = {post.votes}/>
                                         </PostHeader>
                                         <div class="card-body">
                                             <article>
-                                                {post.content}
+                                                <RenderedHtmlText content = { post.content } />
                                             </article>                                           
-                                                <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput()}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
+                                                <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
                                                 <div class="clearfix"></div>                                         
                                                 {this.renderComments(this.props.match.params.postId)}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div>
-                            <form>
-                                <input type="hidden" name="PostId" value="@this.Model.Id" />
-                                <input type="hidden" name="ParentId" value="0" />
-                    
-                                { showHideCommentFrom && <TinyMCEInput /> }
-                                <div>
-                                    <input type="submit" class="btn btn-primary" value="Add comment" />
-                                </div>
-                            </form>
-                        </div>
+                        </div>                   
+                        { showHideCommentFrom && <TinyMCEForm  postId = {postId} parentId = {this.state.parentId} history = {this.props.history} showCommentInput = {this.showCommentInput}/> }
                     </div>
                 <Footer />
             </div>

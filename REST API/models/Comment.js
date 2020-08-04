@@ -5,10 +5,7 @@ const { String, Number, Boolean, ObjectId, Date } = Schema.Types;
 
 const commentSchema = new Schema({
 
-    name: {
-        type: String,
-        required: true,
-    },
+
 
     author: {
         type: ObjectId,

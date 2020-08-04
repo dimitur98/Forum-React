@@ -17,7 +17,7 @@ class TinyMCEInput extends Component{
     
     render(){
         const apiKey  = process.env.REACT_APP_TINYMCE_APYKEY
-        console.log(apiKey)
+        console.log(process.env.REACT_APP_TINYMCE_APYKEY)
         return(          
             <Editor
                 apiKey = { apiKey }
