@@ -7,6 +7,7 @@ import PostHeader from '../components/postHeader'
 import Votes from '../components/votes'
 import TinyMCEForm from '../components/tinyMCEForm'
 import RenderedHtmlText from '../components/renderedHtmlText'
+import getPostById from '../utils/getPostById'
 
 class PostCommentsPage extends Component{
     constructor(){
@@ -32,8 +33,7 @@ class PostCommentsPage extends Component{
     }
 
     getPostById = async (id) => {
-        const promise = await fetch(`http://localhost:9999/api/post//getPostById/${id}`)
-        const post = await promise.json()
+        const post = await getPostById(id)
         this.setState({post,author:post.author})
     }
 
@@ -85,7 +85,6 @@ class PostCommentsPage extends Component{
         const author = this.state.author
         const post = this.state.post
         const postId = this.props.match.params.postId
-
         return(
             <div>
                 <Header />
@@ -96,7 +95,7 @@ class PostCommentsPage extends Component{
                                 <div class="col-md-12">
                                     <div class="card mb-4">
                                         <PostHeader  email = {author.email} createdOn = {post.createdOn} imageUrl = {author.imageUrl} >
-                                            <Votes votes = {post.votes}/>
+                                            <Votes postId = {postId}/>
                                         </PostHeader>
                                         <div class="card-body">
                                             <article>
@@ -110,7 +109,7 @@ class PostCommentsPage extends Component{
                                 </div>
                             </div>
                         </div>                   
-                        { showHideCommentFrom && <TinyMCEForm  postId = {postId} parentId = {this.state.parentId} history = {this.props.history} showCommentInput = {this.showCommentInput}/> }
+                        { showHideCommentFrom && <TinyMCEForm  postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
                     </div>
                 <Footer />
             </div>

@@ -36,9 +36,8 @@ class TinyMCEInputForm extends Component{
                  'Content-Type': 'application/json'
              }
          }).then(() => {
-            const { history } = this.props;
-            history.push(`/`);
-            history.push(`/PostComments/${postId}`);
+            this.props.history.push(`/`);
+            this.props.history.push(`/PostComments/${postId}`);
             
          })
     }

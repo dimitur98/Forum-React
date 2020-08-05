@@ -20,7 +20,37 @@ module.exports = {
                 }
                 return res.send('Confirmation emial is not valid!')
             })
-        }
+        },
+        verifyLogin: (req, res, next) => {
+            const token = req.headers.authorization || '';
+  
+            Promise.all([
+                utils.jwt.verifyToken(token),
+                models.TokenBlacklist.findOne({ token })
+            ])
+                .then(([data, blacklistToken]) => {
+                    if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
+  
+                    models.User.findById(data.id)
+                        .then((user) => {
+                            return res.send({
+                              status: true,
+                              user
+                            })
+                        });
+                })
+                .catch(err => {
+  
+                    if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
+                        res.status(401).send('UNAUTHORIZED!');
+                        return;
+                    }
+  
+                    res.send({
+                      status: false
+                    })
+                })
+          },
     },
 
     post: {
@@ -52,37 +82,7 @@ module.exports = {
                 })
                 .catch(next);
         },
-        verifyLogin: (req, res, next) => {
-            const token = req.body.token || '';
-  
-            Promise.all([
-                utils.jwt.verifyToken(token),
-                models.TokenBlacklist.findOne({ token })
-            ])
-                .then(([data, blacklistToken]) => {
-                    if (blacklistToken) { return Promise.reject(new Error('blacklisted token')) }
-  
-                    models.User.findById(data.id)
-                        .then((user) => {
-                            return res.send({
-                              status: true,
-                              user
-                            })
-                        });
-                })
-                .catch(err => {
-  
-                    if (['token expired', 'blacklisted token', 'jwt must be provided'].includes(err.message)) {
-                        res.status(401).send('UNAUTHORIZED!');
-                        return;
-                    }
-  
-                    res.send({
-                      status: false
-                    })
-                })
-          },
-
+        
         logout: (req, res, next) => {
             const token = req.cookies[config.authCookieName];
             console.log('-'.repeat(100));

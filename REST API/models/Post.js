@@ -26,15 +26,18 @@ const postSchema = new Schema({
         type: String,
         required: true       
     },
-    votes: {
-        type: Number,
-        default: 0
-    },
+    upVotes: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
+    downVotes: [{
+        type: ObjectId,
+        ref: 'User'
+    }],
     content: {
         type: String,
         required: true
     },
-    comments: [{ type: ObjectId, ref: "Comment" }]
 
 });
 

@@ -44,13 +44,12 @@ class App extends Component{
 
 
         fetch('http://localhost:9999/api/user/verify', {
-            method: 'POST',
-            body: JSON.stringify({
-                token
-        }),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+            method: 'GET',
+            
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
         }).then(promise => {
             return promise.json()
         }).then(response => {

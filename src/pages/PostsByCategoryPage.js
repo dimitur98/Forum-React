@@ -37,7 +37,7 @@ class PostsByCategoryPage extends Component{
                     name = {post.name} 
                     authorEmail = {post.author.email} 
                     createdOn = {post.createdOn} 
-                    commentsCount = {post.comments.length} 
+                    commentsCount = {0} 
                 />
             )
         })
