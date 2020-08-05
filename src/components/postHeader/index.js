@@ -1,5 +1,4 @@
 import React from 'react'
-import Votes from '../votes'
 
 
 const PostHeader = (props) => {
@@ -13,7 +12,6 @@ const PostHeader = (props) => {
                             {props.createdOn}
                         </div>
                 </div>
-                {/* <Votes votes = {props.votes}/> */}
                 {props.children}
             </div>
         </div>

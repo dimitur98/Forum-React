@@ -9,6 +9,7 @@ import TinyMCEForm from '../components/tinyMCEForm'
 import RenderedHtmlText from '../components/renderedHtmlText'
 import getPostById from '../utils/getPostById'
 
+
 class PostCommentsPage extends Component{
     constructor(){
         super()
@@ -19,11 +20,14 @@ class PostCommentsPage extends Component{
             author: {},
             comments:[],
             subComments: [],
-            parentId: ""
+            parentId: "",
+            
         }
 
         this.showCommentInput = this.showCommentInput.bind(this)
     }
+
+
 
     showCommentInput(parentId){
         this.setState({ 
@@ -59,6 +63,8 @@ class PostCommentsPage extends Component{
                         createdOn = {comment.createdOn}
                         imageUrl = {comment.author.imageUrl}
                         content = {comment.content}
+                        id = {comment._id}
+                        authorId = {comment.author._id}
                         showCommentInput = {() => this.showCommentInput(comment._id)}
                     >
                     {this.renderComments(comment._id)}
@@ -67,11 +73,7 @@ class PostCommentsPage extends Component{
             ) 
         })       
     }
-    redirectTo = (url) => {
-        console.log(url)
-        this.props.history.push(url)
-        console.log(this.props)
-    }
+    
 
     componentDidMount(){
         this.getPostById(this.props.match.params.postId)
@@ -82,9 +84,9 @@ class PostCommentsPage extends Component{
     render(){
         const { showHideCommentFrom } = this.state
         
-        const author = this.state.author
-        const post = this.state.post
+        const { author, post} = this.state
         const postId = this.props.match.params.postId
+        
         return(
             <div>
                 <Header />
