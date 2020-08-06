@@ -1,12 +1,13 @@
-import React, { Component, PureComponent } from 'react'
+import React, { Component } from 'react'
 import {
-    Link
+    Link,
+    withRouter
 } from 'react-router-dom'
 
 import UserContext from '../../Context'
 
 
-class Header extends PureComponent{
+class Header extends Component{
     
     constructor(props){
         super(props)
@@ -15,8 +16,7 @@ class Header extends PureComponent{
 
     logOut = () => {
         this.context.logOut()
-        console.log(this.context.user)
-        this.props.isAdmin()
+        this.props.history.push('/')
     }
 
     render(){
@@ -24,7 +24,6 @@ class Header extends PureComponent{
             loggedIn,
             user
         } = this.context
-        console.log(loggedIn)
         return(
             <header>
             <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -64,4 +63,4 @@ class Header extends PureComponent{
     }
 }
 
-export default Header
+export default withRouter(Header)

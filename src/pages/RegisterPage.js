@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../components/header'
-import Footer from '../components/footer'
+import PageWrapper from '../components/pageWrapper'
 import Input from '../components/input'
 import ServicesToLogIn from '../components/servicesToLogIn'
 import SubmitBtn from '../components/submitBtn'
@@ -61,8 +60,7 @@ class RegisterPage extends Component{
           } = this.state
 
         return(
-            <div>
-                <Header />
+            <PageWrapper>
                 <div  class="center">
                     <h1>Register</h1>
                             <form onSubmit={this.handleSubmit}>
@@ -94,8 +92,7 @@ class RegisterPage extends Component{
                             </form>
                         </div>
                         <ServicesToLogIn />
-                <Footer />
-            </div>
+            </PageWrapper>
         )
     }
 }

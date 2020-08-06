@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-
-import Header from '../components/header'
-import Footer from '../components/footer'
 import Input from '../components/input'
 import AddImage from '../components/addImage'
 import SubmitBtn from '../components/submitBtn'
+import PageWrapper from '../components/pageWrapper'
 
 class CreateCategoryPage extends Component {
     constructor(props){
@@ -51,8 +49,7 @@ class CreateCategoryPage extends Component {
     render(){
         const { name } = this.state
         return(
-            <>
-                <Header />
+           <PageWrapper>
                     <div class = 'center'>
                         <form onSubmit = {this.handleSubmit}>
                             <Input       
@@ -65,8 +62,7 @@ class CreateCategoryPage extends Component {
                             <SubmitBtn name = 'Create' />
                         </form>
                     </div>
-                <Footer />
-            </>
+            </PageWrapper>
         )
     }
 }

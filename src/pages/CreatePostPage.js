@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
-
-import Header from '../components/header'
-import Footer from '../components/footer'
+import PageWrapper from '../components/pageWrapper'
 import TinyMCEInput from '../components/tinyMCEInput'
 import SubmitBtn from '../components/submitBtn'
 import Input from '../components/input'
-import Category from '../components/category'
 
 class CreatePostPage extends Component{
     constructor(props){
@@ -71,9 +68,7 @@ class CreatePostPage extends Component{
     render(){
         const {name} = this.state
         return(
-            <>
-                <Header />
-                
+            <PageWrapper>
                     <div class = 'center container'>
                         <form onSubmit = {this.handleSubmit}>
                             
@@ -90,8 +85,7 @@ class CreatePostPage extends Component{
                             <SubmitBtn name = 'Create' />
                         </form>
                     </div>
-                <Footer />
-            </>
+            </PageWrapper>
         )
     }
 }

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-
 import '../App.css';
-import Header from '../components/header'
-import Footer from '../components/footer'
+import PageWrapper from '../components/pageWrapper'
 import Post from '../components/posts'
 import UserContext from '../Context'
 
@@ -54,8 +52,7 @@ class PostsByCategoryPage extends Component{
        const { user } = this.context
        
         return (
-            <div>
-                    <Header />
+            <PageWrapper>
                     <div className='container'>
                         <main role="main" className="pb-3">
                             <h1 className="display-3">Title: {categoryName} 
@@ -63,10 +60,9 @@ class PostsByCategoryPage extends Component{
                                 <i class="fa fa-plus"></i>&nbsp; Answer
                             </Link>}</h1>                       
                                 {this.renderPosts()}
-                            <Footer />
                         </main>
                     </div>
-             </div>
+             </PageWrapper>
         )
     }
 }

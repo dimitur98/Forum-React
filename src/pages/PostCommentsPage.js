@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Header from '../components/header'
-import Footer from '../components/footer'
+import PageWrapper from '../components/pageWrapper'
 import Comment from '../components/comment';
 import PostHeader from '../components/postHeader'
 import Votes from '../components/votes'
@@ -91,8 +90,7 @@ class PostCommentsPage extends Component{
         const postId = this.props.match.params.postId
         const {loggedIn} = this.context
         return(
-            <div>
-                <Header />
+            <PageWrapper>
                     <div class='container'>
                         <h1>{post.name}</h1>
                         <div class="container-fluid mt-100">
@@ -116,8 +114,7 @@ class PostCommentsPage extends Component{
                         </div>                   
                         { showHideCommentFrom && <TinyMCEForm  postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
                     </div>
-                <Footer />
-            </div>
+             </PageWrapper>
         )
     }
 }

@@ -5,6 +5,7 @@ import Header from '../components/header'
 import Footer from '../components/footer'
 import Category from '../components/category'
 import UserContext from '../Context'
+import PageWrapper from '../components/pageWrapper'
 
 class HomePage extends Component{
   constructor(props){
@@ -54,8 +55,7 @@ class HomePage extends Component{
     const {admin} = this.state
     const {loggedIn} = this.context
     return (
-      <div>     
-          <Header isAdmin = {this.isAdmin}/>
+      <PageWrapper isAdmin = {this.isAdmin}>
           <div class="container">
               <main role="main" class="pb-3">
                   <div class="text-center">
@@ -69,8 +69,7 @@ class HomePage extends Component{
                   </div>
               </main>
           </div>
-          <Footer />     
-      </div>
+      </PageWrapper>
     )
   }
 }

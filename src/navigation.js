@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage'
 import CreateCategoryPage from './pages/CreateCategoryPage'
 import CreatePostPage from './pages/CreatePostPage'
 import AccountPage from './pages/AccountPage/index'
+import ChangePasswordPage from './pages/ChangePasswordPage/index'
 import UserContext from './Context'
 
 
@@ -37,6 +38,7 @@ class Navigation extends Component {
                         <Route path="/CreatePost/:categoryId/:authorId" component = { loggedIn ? CreatePostPage : LoginPage } />
                         <Route path="/Login" component = { LoginPage } />
                         <Route path="/Account" component = { AccountPage } />
+                        <Route path="/ChangePassword" component = { ChangePasswordPage } />
                     </Switch>
                 </BrowserRouter>
             </Fragment>

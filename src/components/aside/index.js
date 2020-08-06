@@ -10,7 +10,7 @@ const Aside = () => {
                 <div class={styles.blockContent}>
                     <ul>
                         <li><Link to={'/Account'}>All posts</Link></li>
-                        <li><Link>Change password</Link></li>                                    
+                        <li><Link to='/ChangePassword'>Change password</Link></li>                                    
                         <li><Link>Change avatar</Link></li>                                    
                     </ul>
                 </div>

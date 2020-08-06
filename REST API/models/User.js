@@ -41,9 +41,21 @@ userSchema.methods = {
 
     matchPassword: function (password) {
         return bcrypt.compare(password, this.password);
+    },
+
+    bcryptPassword: function (password){
+        bcrypt.genSalt(saltRounds, (err, salt) => {
+            bcrypt.hash(password, salt, (err, hash) => {
+                if (err) { next(err); return }
+                return hash;
+                
+            });
+        });
+        return
     }
 
 };
+
 
 userSchema.pre('save', function (next) {
     if (this.isModified('password')) {
@@ -59,5 +71,6 @@ userSchema.pre('save', function (next) {
     }
     next();
 });
+
 
 module.exports = new Model('User', userSchema);

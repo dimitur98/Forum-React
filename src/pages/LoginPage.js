@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../components/header'
-import Footer from '../components/footer'
+import PageWrapper from '../components/pageWrapper'
 import Input from '../components/input'
 import ServicesToLogIn from '../components/servicesToLogIn'
 import LoginOptions from '../components/loginOptions'
@@ -54,8 +53,7 @@ class LoginPage extends Component {
     const {email, password} = this.state
 
         return(
-            <div>
-                <Header />
+           <PageWrapper>
                 <div class='center'>
                 <div>asd</div>
                     <h1>Login</h1>
@@ -83,8 +81,7 @@ class LoginPage extends Component {
                             </section>      
                         </div>
                         <ServicesToLogIn />
-                <Footer />
-            </div>
+             </PageWrapper>
         )
     }
 }

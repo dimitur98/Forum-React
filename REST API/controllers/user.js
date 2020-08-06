@@ -1,6 +1,10 @@
 const models = require('../models');
 const config = require('../config/config');
 const utils = require('../utils');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+const { v4: uuidv4 } = require('uuid');
+
 const { model } = require('mongoose');
 
 module.exports = {
@@ -101,10 +105,31 @@ module.exports = {
 
     put: (req, res, next) => {
         const id = req.params.id;
-        const { username, password } = req.body;
-        models.User.update({ _id: id }, { username, password })
-            .then((updatedUser) => res.send(updatedUser))
-            .catch(next)
+        const { oldPassword, newPassword } = req.body;
+        console.log(oldPassword)
+        models.User.findOne({_id:id}).then((user) => Promise.all([user, user.matchPassword(oldPassword)]))
+        .then(([user, match])=>{
+            if(match){
+                bcrypt.genSalt(saltRounds, (err, salt) => {
+                    bcrypt.hash(newPassword, salt, (err, hash) => {
+                        if (err) { next(err); return }
+                        models.User.update({ _id: id }, {password: hash }).then((updatedUser)=>{
+                            console.log(updatedUser)
+                            res.send(updatedUser)
+                            return
+                        })
+                        
+                    });
+                });
+               
+               
+            }
+            res.status(401).send('no match')
+        })
+        
+        // models.User.update({ _id: id }, { username, password })
+        //     .then((updatedUser) => res.send(updatedUser))
+        //     .catch(next)
     },
 
     delete: (req, res, next) => {
