@@ -99,7 +99,8 @@ module.exports = {
                     res.clearCookie(config.authCookieName).send('Logout successfully!');
                 })
                 .catch(next);
-        }
+        },
+        
            
     },
 

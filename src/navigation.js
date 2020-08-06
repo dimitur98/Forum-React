@@ -14,6 +14,7 @@ import CreateCategoryPage from './pages/CreateCategoryPage'
 import CreatePostPage from './pages/CreatePostPage'
 import AccountPage from './pages/AccountPage/index'
 import ChangePasswordPage from './pages/ChangePasswordPage/index'
+import ChangeAvatarPage from './pages/ChangeAvatarPage'
 import UserContext from './Context'
 
 
@@ -39,6 +40,7 @@ class Navigation extends Component {
                         <Route path="/Login" component = { LoginPage } />
                         <Route path="/Account" component = { AccountPage } />
                         <Route path="/ChangePassword" component = { ChangePasswordPage } />
+                        <Route path="/ChangeAvatar" component = { ChangeAvatarPage } />
                     </Switch>
                 </BrowserRouter>
             </Fragment>

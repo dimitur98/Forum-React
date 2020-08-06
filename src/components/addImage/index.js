@@ -9,9 +9,7 @@ class AddImage extends Component{
           imageUrl: ""
         }
       }
-
-      
-    
+   
     openWidget= () => {
         const widget = window.cloudinary.createUploadWidget({
             cloudName: "dimitur98",
