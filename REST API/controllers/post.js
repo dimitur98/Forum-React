@@ -1,5 +1,16 @@
 const post = require('../models/Post')
-const comment = require('./comment')
+const comment = require('../models/Comment')
+
+const deleteCommentById = async(id)=>{
+    const comments = await comment.find({parentComment: id.id})
+    if(comments){
+        comments.forEach(async(sc) => {
+            await deleteCommentById({id:sc._id.toString()})
+            await comment.findOneAndDelete({_id:sc._id})
+        });
+    }
+    return
+}
 
 module.exports = {
     get:{
@@ -66,5 +77,13 @@ module.exports = {
 
         }
 
+    },
+    delete:{
+        deletePost: async (req,res,next) => {
+            const {postId} = req.params
+            await deleteCommentById({id:postId})
+            await post.findOneAndDelete({_id:postId})
+            res.send("done")
+        }
     }
 }

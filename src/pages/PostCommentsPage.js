@@ -8,6 +8,8 @@ import Votes from '../components/votes'
 import TinyMCEForm from '../components/tinyMCEForm'
 import RenderedHtmlText from '../components/renderedHtmlText'
 import getPostById from '../utils/getPostById'
+import UserContext from '../Context'
+
 
 
 class PostCommentsPage extends Component{
@@ -27,6 +29,7 @@ class PostCommentsPage extends Component{
         this.showCommentInput = this.showCommentInput.bind(this)
     }
 
+    static contextType = UserContext
 
 
     showCommentInput(parentId){
@@ -86,7 +89,7 @@ class PostCommentsPage extends Component{
         
         const { author, post} = this.state
         const postId = this.props.match.params.postId
-        
+        const {loggedIn} = this.context
         return(
             <div>
                 <Header />
@@ -103,7 +106,7 @@ class PostCommentsPage extends Component{
                                             <article>
                                                 <RenderedHtmlText content = { post.content } />
                                             </article>                                           
-                                                <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>
+                                               {loggedIn && <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>}
                                                 <div class="clearfix"></div>                                         
                                                 {this.renderComments(this.props.match.params.postId)}
                                         </div>

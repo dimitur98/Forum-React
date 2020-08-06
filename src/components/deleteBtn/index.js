@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-class DeleteComment extends Component{
+class DeleteBtn extends Component{
     constructor(props){
         super(props)
         this.state={
             a:""
         }
     }
-    deleteComment=()=>{
-        const {id} = this.props
-         fetch(`http://localhost:9999/api/comment/deleteComment/${id}`, {
+    delete=()=>{
+        const {id, type} = this.props
+         fetch(`http://localhost:9999/api/${type}/delete${type}/${id}`, {
             method: 'DELETE',
         }).then((c) => {
         })
@@ -19,9 +19,9 @@ class DeleteComment extends Component{
     render(){
         return(
             <>
-                <div class=" pt-3"> <a type="button"  onClick={this.deleteComment}><FontAwesomeIcon icon={faTrash} /></a> </div>                                       
+                <div class=" pt-3"> <a type="button"  onClick={this.delete}><FontAwesomeIcon icon={faTrash} /></a> </div>                                       
             </>
         )
     }
 }
-export default DeleteComment
+export default DeleteBtn

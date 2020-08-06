@@ -33,34 +33,42 @@ class Votes extends Component{
             })
         }   
     }
-    getPostById = async (id) => {
-        const post = await getPostById(id)
-        this.setState({post})
-    }
-
-    componentDidMount = async()=>{
+    
+    getVotes=async()=>{
         const {postId} = this.props
-        await this.getPostById(postId)
-        const {post} = this.state
+        const promose = await fetch(`http://localhost:9999/api/post//getPostById/${postId}`)    
+        const post = await promose.json()
         const votes = post.upVotes.length - post.downVotes.length 
-        this.setState({votes})
+        this.setState({votes})  
     }
+    componentDidMount(){
+        const {postId} = this.props
+        fetch(`http://localhost:9999/api/post//getPostById/${postId}`).then(r =>{   
+            r.json().then(p=>{
+                const votes = p.upVotes.length - p.downVotes.length 
+                this.setState({votes})
+             })})        
+    }
+    
+        
+    
     render(){
         const {votes} = this.state
+        const {loggedIn} = this.context
 
         return(
             <div class="text-muted small ml-3">
-                    <div>
+                    {loggedIn &&<div>
                         <a href="#" onClick={()=>this.makeVote('+')}>
                             <i class="fa fa-thumbs-up"></i>
                         </a>
-                    </div>
-                    <div  id="votesCount">{votes}</div>
-                    <div>
+                    </div>}
+                    <div  id="votesCount">Votes:{votes}</div>
+                    {loggedIn && <div>
                         <a href="#" onClick={()=>this.makeVote('-')}>
                             <i class="fa fa-thumbs-down"></i>
                         </a>
-                    </div>
+                    </div>}
             </div>
         )
     }

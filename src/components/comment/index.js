@@ -1,8 +1,11 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import AddAnswer from '../addAnswer'
 import PostHeader from '../postHeader'
 import RenderedHtmlText from '../renderedHtmlText'
+import UserContext from '../../Context'
+
 const Comment = (props) => {
+    const context = useContext(UserContext)
     return(
         <div>
             <div class="container-fluid mt-100">
@@ -10,7 +13,7 @@ const Comment = (props) => {
                             <div class="col-md-12">
                                 <div class="card mb-4">
                                     <PostHeader  email = {props.email} createdOn = {props.createdOn} imageUrl = {props.imageUrl}>
-                                        <AddAnswer id = {props.id} showCommentInput ={() => props.showCommentInput(props.id)} authorId = {props.authorId} />
+                                        {context.loggedIn && <AddAnswer id = {props.id} showCommentInput ={() => props.showCommentInput(props.id)} authorId = {props.authorId} />}
                                     </PostHeader>
                                     <div class="card-body">
                                         <article>
