@@ -40,6 +40,7 @@ class LoginPage extends Component {
                 email,
                 password
             }, (user) => {
+                console.log(user)
                 this.context.logIn(user)
                 this.props.history.push('/')
             }, (e) => {

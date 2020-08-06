@@ -11,7 +11,8 @@ class HomePage extends Component{
     super(props)
 
     this.state = {
-      categories: []
+      categories: [],
+      admin: true
     }
   }
   static contextType = UserContext
@@ -32,21 +33,35 @@ class HomePage extends Component{
       )
     })
   }
+  isAdmin=()=>{
+    const { user } = this.context
+    console.log(user)
+    if(user){
+      if(user.role === 'admin'){
+        this.setState({admin: true})
+        return
+      }
+    }
+    this.setState({admin:false})
+  }
 
   componentDidMount(){
     this.getAllNotDeletedCategories()
+    this.isAdmin()
   }
 
   render(){
+    const {admin} = this.state
+    const {loggedIn} = this.context
     return (
       <div>     
-          <Header />
+          <Header isAdmin = {this.isAdmin}/>
           <div class="container">
               <main role="main" class="pb-3">
                   <div class="text-center">
                       <h1 class="display-3">ForumSystem</h1>
 
-                      {this.context.loggedIn && <Link to='/CreateCategory' class="btn btn-primary btn-lg">Add new category</Link>}
+                      {(loggedIn && admin) && <Link to='/CreateCategory' class="btn btn-primary btn-lg">Add new category</Link>}
                   </div>
                   <hr />
                   <div class="row">

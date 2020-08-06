@@ -38,6 +38,7 @@ class PostsByCategoryPage extends Component{
                     authorEmail = {post.author.email} 
                     createdOn = {post.createdOn} 
                     commentsCount = {0} 
+                    authorId = {post.author._id}
                 />
             )
         })

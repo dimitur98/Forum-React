@@ -33,6 +33,7 @@ module.exports = {
   
                     models.User.findById(data.id)
                         .then((user) => {
+                            console.log(user)
                             return res.send({
                               status: true,
                               user

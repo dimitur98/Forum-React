@@ -8,11 +8,15 @@ import UserContext from '../../Context'
 
 class Header extends PureComponent{
     
-
+    constructor(props){
+        super(props)
+    }
     static contextType = UserContext
 
     logOut = () => {
         this.context.logOut()
+        console.log(this.context.user)
+        this.props.isAdmin()
     }
 
     render(){
