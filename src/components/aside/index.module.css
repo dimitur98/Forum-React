@@ -1,0 +1,65 @@
+.asideMain{
+    float: right;
+    width: 172px;
+    border-bottom: 1px solid #ECECEC;
+	margin-bottom: 5px;
+    padding-bottom: 8px;
+    border-bottom: none;
+    font-weight: 900;
+	color: #333;
+  }
+.blockAccount{
+    padding-top: 0 !important;
+    margin-left: 10px;
+	padding-bottom: 5px !important;
+}
+
+  .blockAccount ul{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .blockAccount li{
+    padding: 10px 0px;
+    cursor: pointer;
+	transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
+	font-family:'Saira Condensed', sans-serif;
+	font-size:16px;
+	letter-spacing:0.5px
+  }
+
+  .blockTitle{
+    background: none repeat scroll 0 0 #fff;
+    border-bottom: 1px solid #e5e5e5;
+    border-top-right-radius: 25px 25px;
+	font-size: 14px;
+	font-weight: bold;
+	margin: 0;
+	padding: 10px;
+	text-align: left;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 0px;
+    padding: 20px 25px 20px 25px;
+    position: relative;
+    display: inline-block;
+    font-family: 'Saira Condensed', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: #3e6274;
+    margin-top: 0px;
+    min-width: 230px;
+  }
+
+  .blockContent{
+    border: 1px #ddd solid;
+    margin: 0px 0px 0px ;
+    font-size: 14px;
+    padding: 10px 0 30px 0;
+    border-left-width: 10px;
+    width: 230px;
+    overflow: hidden;
+    background-color: #fff;
+  }

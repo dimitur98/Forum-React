@@ -12,6 +12,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import CreateCategoryPage from './pages/CreateCategoryPage'
 import CreatePostPage from './pages/CreatePostPage'
+import AccountPage from './pages/AccountPage/index'
 import UserContext from './Context'
 
 
@@ -35,6 +36,7 @@ class Navigation extends Component {
                         <Route path="/CreateCategory" component = { loggedIn ? CreateCategoryPage : LoginPage } />
                         <Route path="/CreatePost/:categoryId/:authorId" component = { loggedIn ? CreatePostPage : LoginPage } />
                         <Route path="/Login" component = { LoginPage } />
+                        <Route path="/Account" component = { AccountPage } />
                     </Switch>
                 </BrowserRouter>
             </Fragment>

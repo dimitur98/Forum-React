@@ -26,6 +26,12 @@ module.exports = {
                 res.send(post)
             }).catch(next)
             
+        },
+        getPostsByUserId: (req,res,next) => {
+            const {userId} = req.params
+            post.find({author: userId}).populate('author').then(p => {
+                res.send(p)
+            })
         }
     },
     post:{

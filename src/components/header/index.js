@@ -30,10 +30,7 @@ class Header extends PureComponent{
             <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
                     <a class="navbar-brand" >Forum</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
+            
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         
                         <ul class="navbar-nav">
@@ -51,7 +48,7 @@ class Header extends PureComponent{
                                 </>):
                                 (<>
                                     <li class="nav-item">
-                                        <Link class="nav-link text-dark">Hi {user.email}</Link>
+                                        <Link to='/Account' class="nav-link text-dark">Hi {user.email}</Link>
                                     </li>
                                     <li class="nav-item">
                                         <Link onClick={this.logOut} class="nav-link text-dark">Logout</Link>

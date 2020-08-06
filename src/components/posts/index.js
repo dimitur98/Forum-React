@@ -26,6 +26,7 @@ const Post = (props) => {
     const isAuthor = () =>{
         const {user} = context
         const {authorId} = props
+        console.log(authorId === user.id)
         if(user){
             if(user.id === authorId || user.role === 'admin' ){
                 setAuthor(true)
