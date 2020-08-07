@@ -15,7 +15,8 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
       onSuccess({
         email: response.email,
         id: response._id,
-        role: response.role
+        role: response.role,
+        imageUrl: response.imageUrl
       })
     } else {
       onFailure()

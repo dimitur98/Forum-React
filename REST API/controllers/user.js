@@ -100,6 +100,18 @@ module.exports = {
                 })
                 .catch(next);
         },
+        imgChange: async(req,res,next) => {
+            const {url} = req.body
+            const {userId} = req.params
+
+            try{
+            const result = await models.User.findOneAndUpdate({_id: userId}, {imageUrl: url})
+            console.log(result)
+            res.send(result)
+            }catch(e){
+                console.log(e)
+            }
+        }
         
            
     },

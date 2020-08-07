@@ -36,7 +36,6 @@ class HomePage extends Component{
   }
   isAdmin=()=>{
     const { user } = this.context
-    console.log(user)
     if(user){
       if(user.role === 'admin'){
         this.setState({admin: true})

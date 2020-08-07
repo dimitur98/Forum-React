@@ -9,9 +9,9 @@ const Aside = () => {
             <div class={styles.blockTitle}> My Account </div>
                 <div class={styles.blockContent}>
                     <ul>
-                        <li><Link to={'/Account'}>All posts</Link></li>
+                        <li><Link to='/Account'>All posts</Link></li>
                         <li><Link to='/ChangePassword'>Change password</Link></li>                                    
-                        <li><Link>Change avatar</Link></li>                                    
+                        <li><Link to='/ChangeAvatar'>Change avatar</Link></li>                                    
                     </ul>
                 </div>
             </div>

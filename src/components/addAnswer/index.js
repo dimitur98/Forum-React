@@ -20,7 +20,6 @@ class AddAnswer extends Component {
     isAuthor(){
         const {user} = this.context
         const {authorId} = this.props
-        console.log('user',user)
         if(user){
             if(user.id === authorId || user.role === 'admin'){
                 this.setState({isAuthor: true})
@@ -36,7 +35,6 @@ class AddAnswer extends Component {
     render(){
         const {id} = this.props
         const{isAuthor} = this.state
-        console.log(this.context)
         return(
             <>
                 <div class="text-muted small ml-3">                                      

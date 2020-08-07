@@ -56,7 +56,7 @@ class PostCommentsPage extends Component{
         const subComments = comments.filter(c => c.parentComment == postId) 
         if(subComments.length == 0){return}
         return subComments.map((comment) => {   
-                           
+                        console.log(comment.author.email)   
         return(    
                 <div>                       
                     <Comment 

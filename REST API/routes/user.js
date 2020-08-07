@@ -8,6 +8,7 @@ router.get('/confirm/:uuid/:userId', controllers.user.get.confirmEmail);
 router.post('/register', controllers.user.post.register);
 router.post('/login', controllers.user.post.login);
 router.post('/logout', controllers.user.post.logout);
+router.post('/imgChange/:userId', controllers.user.post.imgChange);
 
 
 router.put('/ChangePassword/:id', controllers.user.put);

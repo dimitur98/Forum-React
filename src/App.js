@@ -23,6 +23,7 @@ class App extends Component{
         })
     }
 
+
     logOut = (user) => {
         document.cookie = "x-auth-token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
 
@@ -53,11 +54,12 @@ class App extends Component{
         }).then(promise => {
             return promise.json()
         }).then(response => {
-            console.log(response)
         if(response.status) {
             this.logIn({
                 email: response.user.email,
-                id: response.user._id
+                id: response.user._id,
+                role: response.user.role,
+                imageUrl: response.user.imageUrl
             })
         } else {
             this.logOut()
