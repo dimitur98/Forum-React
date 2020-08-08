@@ -3,7 +3,8 @@ import PageWrapper from '../components/pageWrapper'
 import Input from '../components/input'
 import ServicesToLogIn from '../components/servicesToLogIn'
 import SubmitBtn from '../components/submitBtn'
-import AddImage from '../components/addImage'
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class RegisterPage extends Component{
     constructor(props) {
@@ -13,19 +14,19 @@ class RegisterPage extends Component{
           email: "",
           password: "",
           rePassword: "",
-          imageUrl: ""
+          imageUrl: "",
+          passwordsMatch: false
         }
       }
     
       onChange = (event, type) => {
-          console.log(this.state)
         const newState = {}
         newState[type] = event.target.value
     
         this.setState(newState)
       }
 
-      handleSubmit = async(event) => {
+      register = async(event) => {
           event.preventDefault()
 
           const{
@@ -47,8 +48,29 @@ class RegisterPage extends Component{
               this.props.history.push('/Login')
           })
       }
-      setImgUrl = (imageUrl) => {
-          this.setState({imageUrl})
+      
+
+      isPasswordsMatch = () => {
+          const {password, rePassword, email} = this.state
+          if(password === rePassword && email){
+              this.setState({passwordsMatch: true})
+          }else{
+              this.setState({passwordsMatch: false})
+          }
+      }
+
+      openWidget= () => {
+        const widget = window.cloudinary.createUploadWidget({
+            cloudName: "dimitur98",
+            uploadPreset: "ReactForum"
+        }, (err,res) => {
+            if(res.event === 'success'){
+                this.setState({
+                    imageUrl: res.info.url
+                })
+            }
+        })
+        widget.open()
       }
 
     render(){
@@ -56,6 +78,7 @@ class RegisterPage extends Component{
             email,
             password,
             rePassword,
+            passwordsMatch,
             imageUrl
           } = this.state
 
@@ -63,7 +86,7 @@ class RegisterPage extends Component{
             <PageWrapper>
                 <div  class="center">
                     <h1>Register</h1>
-                            <form onSubmit={this.handleSubmit}>
+                            <form onSubmit={this.register}>
                                 <h4>Create a new account.</h4>
                                 <hr />
                                 <Input
@@ -78,6 +101,7 @@ class RegisterPage extends Component{
                                     label="Password"
                                     id="password"
                                     type="password"
+                                    isPasswordsMatch = {this.isPasswordsMatch}
                                 />
                                 <Input
                                     value={rePassword}
@@ -85,10 +109,11 @@ class RegisterPage extends Component{
                                     label="Repeat Password"
                                     id="rePassword"
                                     type="password"
-
+                                    isPasswordsMatch = {this.isPasswordsMatch}
                                 />
-                                <AddImage setImgUrl = {this.setImgUrl}/>
-                                <SubmitBtn  name='Register'/>
+                                <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
+                                {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
+                                {imageUrl && passwordsMatch  && (<SubmitBtn  name='Register'/>) }
                             </form>
                         </div>
                         <ServicesToLogIn />

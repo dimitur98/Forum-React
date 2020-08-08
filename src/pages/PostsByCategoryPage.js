@@ -34,7 +34,7 @@ class PostsByCategoryPage extends Component{
                     content = {post.content.substring(0,500)+'...'}
                     name = {post.name} 
                     authorEmail = {post.author.email} 
-                    createdOn = {post.createdOn} 
+                    createdOn = {new Date(post.createdOn).toLocaleString()} 
                     commentsCount = {0} 
                     authorId = {post.author._id}
                 />

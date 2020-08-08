@@ -10,7 +10,6 @@ import getPostById from '../utils/getPostById'
 import UserContext from '../Context'
 
 
-
 class PostCommentsPage extends Component{
     constructor(){
         super()
@@ -24,7 +23,6 @@ class PostCommentsPage extends Component{
             parentId: "",
             
         }
-
         this.showCommentInput = this.showCommentInput.bind(this)
     }
 
@@ -56,13 +54,12 @@ class PostCommentsPage extends Component{
         const subComments = comments.filter(c => c.parentComment == postId) 
         if(subComments.length == 0){return}
         return subComments.map((comment) => {   
-                        console.log(comment.author.email)   
         return(    
                 <div>                       
                     <Comment 
                         key = {comment._id} 
                         email = {comment.author.email}
-                        createdOn = {comment.createdOn}
+                        createdOn = {new Date(comment.createdOn).toLocaleString()}
                         imageUrl = {comment.author.imageUrl}
                         content = {comment.content}
                         id = {comment._id}
@@ -75,7 +72,6 @@ class PostCommentsPage extends Component{
             ) 
         })       
     }
-    
 
     componentDidMount(){
         this.getPostById(this.props.match.params.postId)
@@ -97,10 +93,10 @@ class PostCommentsPage extends Component{
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card mb-4">
-                                        <PostHeader  email = {author.email} createdOn = {post.createdOn} imageUrl = {author.imageUrl} >
+                                        <PostHeader  email = {author.email} createdOn = {new Date(post.createdOn).toLocaleString()} imageUrl = {author.imageUrl} >
                                             <Votes postId = {postId}/>
                                         </PostHeader>
-                                        <div class="card-body">
+                                        <div class="card-body" >
                                             <article>
                                                 <RenderedHtmlText content = { post.content } />
                                             </article>                                           
@@ -112,7 +108,7 @@ class PostCommentsPage extends Component{
                                 </div>
                             </div>
                         </div>                   
-                        { showHideCommentFrom && <TinyMCEForm  postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
+                        { showHideCommentFrom && <TinyMCEForm postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
                     </div>
              </PageWrapper>
         )

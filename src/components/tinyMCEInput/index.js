@@ -11,19 +11,26 @@ class TinyMCEInput extends Component{
         }
     }
     handleEditorChange = (content, editor) => {
-        console.log('Content was updated:', content);
         this.props.getContent(content)
       }
     
+    componentDidMount(){
+        setTimeout(() => {
+            window.scrollTo(0,document.body.scrollHeight);
+          }, 500);
+    }
     render(){
         const apiKey  = process.env.REACT_APP_TINYMCE_APYKEY
         console.log(process.env.REACT_APP_TINYMCE_APYKEY)
-        return(          
-            <Editor
-                apiKey = { apiKey }
-                plugins = "image paste table link code media"
-                onEditorChange={this.handleEditorChange}
-            />                   
+        return(    
+            <>   
+                <div ></div>   
+                <Editor 
+                    apiKey = { apiKey }
+                    plugins = "image paste table link code media"
+                    onEditorChange={this.handleEditorChange}
+                />
+            </>                   
         )
     }
 }

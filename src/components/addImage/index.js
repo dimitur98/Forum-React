@@ -45,7 +45,6 @@ class AddImage extends Component{
                         imageUrl: res.url,
                         done: true
                     })
-                    console.log(this.context.user)
                     this.props.checkAvatar(res.url)
                 })
         
@@ -53,14 +52,16 @@ class AddImage extends Component{
           
     }
     loadImg = (e) =>{
-        console.log(e)
         this.setState({imageUrl:  URL.createObjectURL(e.target.files[0])})
     }
 
     componentDidMount(){
         const {user} = this.context
-        this.setState({imageUrl: user.imageUrl})
-        console.log(user)
+        if(user){
+            this.setState({imageUrl: user.imageUrl})
+        }else{
+            this.setState({imageUrl: process.env.REACT_APP_DEFAULTAVATAR})
+        }
     }
 
     render(){
