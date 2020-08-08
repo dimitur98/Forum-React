@@ -20,7 +20,7 @@ class PostCommentsPage extends Component{
             author: {},
             comments:[],
             subComments: [],
-            parentId: "",
+            parentId: ""
             
         }
         this.showCommentInput = this.showCommentInput.bind(this)
@@ -65,12 +65,16 @@ class PostCommentsPage extends Component{
                         id = {comment._id}
                         authorId = {comment.author._id}
                         showCommentInput = {() => this.showCommentInput(comment._id)}
+                        refresh = {this.refresh}
                     >
                     {this.renderComments(comment._id)}
                     </Comment>
                 </div>
             ) 
         })       
+    }
+    refresh = () =>{
+        this.getCommentsByPostId(this.props.match.params.postId)
     }
 
     componentDidMount(){

@@ -13,7 +13,7 @@ import UserContext from '../../Context'
 const Post = (props) => {
     const [commentsCount, setcommentsCount] = useState(0)
     const [author, setAuthor] = useState(false)
-    const {id, name, content, authorEmail, createdOn} = props 
+    const {id, name, content, authorEmail, createdOn, refresh} = props 
     const context = useContext(UserContext)
 
     const getComments = async() => {
@@ -42,7 +42,7 @@ const Post = (props) => {
 
     return(
         <div className="media-body">
-            <h4 className="media-heading"><Link to = {`/PostComments/${id}`}>{name}</Link> {author && <DeleteBtn type={'Post'} id={id}/>}</h4>
+            <h4 className="media-heading"><Link to = {`/PostComments/${id}`}>{name}</Link> {author && <DeleteBtn refresh = {refresh} type={'Post'} id={id}/>}</h4>
             
             <RenderedHtmlText content = {content}/>
             <ul className="list-inline list-unstyled text-right">

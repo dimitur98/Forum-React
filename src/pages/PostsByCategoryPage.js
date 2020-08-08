@@ -37,10 +37,15 @@ class PostsByCategoryPage extends Component{
                     createdOn = {new Date(post.createdOn).toLocaleString()} 
                     commentsCount = {0} 
                     authorId = {post.author._id}
+                    refresh = {this.refresh}
                 />
             )
         })
         
+    }
+
+    refresh = () =>{
+        this.getPosts(this.props.match.params.categoryId)
     }
 
     componentDidMount(){

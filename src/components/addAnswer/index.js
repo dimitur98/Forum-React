@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import DeleteBtn from '../deleteBtn/index.js'
 import UserContext from '../../Context'
 
 class AddAnswer extends Component {
@@ -16,31 +15,14 @@ class AddAnswer extends Component {
     clickMe = () => {
         this.props.showCommentInput()
     }
-
-    isAuthor(){
-        const {user} = this.context
-        const {authorId} = this.props
-        if(user){
-            if(user.id === authorId || user.role === 'admin'){
-                this.setState({isAuthor: true})
-            }
-        }
-    }
-
-    componentDidMount(){
-        this.isAuthor()
-    }
-    
     
     render(){
-        const {id} = this.props
-        const{isAuthor} = this.state
         return(
             <>
                 <div class="text-muted small ml-3">                                      
                     <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onClick={this.clickMe}><i class="fa fa-plus"></i>&nbsp; Answer</button> </div>                                       
                 </div>
-                {isAuthor && <DeleteBtn id = {id} type={'Comment'}/>}
+                
             </>       
         )
     }
