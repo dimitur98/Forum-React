@@ -39,7 +39,8 @@ class RegisterPage extends Component{
               body: JSON.stringify({
                 email,
                 password,
-                imageUrl
+                imageUrl,
+                faceBook: false
               }),
               headers: {
                   'Content-Type': 'application/json'

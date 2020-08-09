@@ -1,4 +1,17 @@
 const category = require('../models/Category')
+const post = require('../models/Post')
+const comment = require('../models/Comment')
+
+const deleteCommentById = async(id)=>{
+    const comments = await comment.find({parentComment: id.id})
+    if(comments){
+        comments.forEach(async(sc) => {
+            await deleteCommentById({id:sc._id.toString()})
+            await comment.findOneAndDelete({_id:sc._id})
+        });
+    }
+    return
+}
 
 module.exports = {
     get:{
@@ -23,5 +36,17 @@ module.exports = {
                 .catch(next)
         },
 
+    },
+    delete:{
+        deleteCategory: async(req,res,next) => {
+            const {id} = req.params
+            const posts = await post.find({categoryId: id})
+            posts.forEach( async(p) => {
+                await deleteCommentById({id:p._id})
+                await post.findOneAndDelete({_id:p._id})
+            })
+            await category.findOneAndDelete({_id:id})
+            res.send("done")
+        }
     }
 }

@@ -60,14 +60,32 @@ module.exports = {
     },
 
     post: {
-        register: (req, res, next) => {
-            const { email, password, imageUrl} = req.body;
+        register: async(req, res, next) => {
+            const { email, password, imageUrl, faceBook} = req.body;
+            console.log(email)
+            models.User.findOne({ email })
+            .then((user) => {
+                if(user){
+                    res.status(409).send({err: 'Email exists'});
+                    return;
+                }                                 
+            })
+            .catch(next);
             models.User.create({ email, password, imageUrl })
-                .then((createdUser) => {
-                    utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
+                .then(async(createdUser) => {
+                    console.log(faceBook)
+                    if(faceBook){
+                        const a = await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
+                        console.log(a)
+                    }else{
+                        utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
+                    }
                     res.send(createdUser)
                 })
-                .catch(next)
+                .catch(err=>{
+                    console.log(err)
+                    res.send(err)
+                })    
         },
 
         login: (req, res, next) => {

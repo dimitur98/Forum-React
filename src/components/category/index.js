@@ -1,8 +1,26 @@
-import React from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import { EditorPropTypes } from '@tinymce/tinymce-react/lib/cjs/main/ts/components/EditorPropTypes'
+import DeleteBtn from '../deleteBtn'
+import UserContext from '../../Context'
+
 
 const Category = (props) =>{
+    const context = useContext(UserContext)
+    const [admin, setAdmin] = useState(false)
+
+    const checkAdmin = () =>{
+        const {user} = context
+        if(user){
+            if(user.role === 'admin'){
+                setAdmin(true)
+            }
+        }
+    }
+
+    useEffect(()=>{
+        checkAdmin()
+    },[])
+
     return(
         <div class="col-md-4 media">
             <img src={props.imageUrl} width="100" class="mr-3" alt={props.name} />
@@ -11,6 +29,7 @@ const Category = (props) =>{
                     <Link to ={`/postsByCategory/${props.id}/${props.name}`} >
                         {props.name}
                     </Link>
+                    {admin && <DeleteBtn refresh = {props.refresh} type='category' id={props.id}/>}
                 </h5>            
             </div>
         </div>

@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Link } from 'react-router-dom'
-import Header from '../components/header'
-import Footer from '../components/footer'
 import Category from '../components/category'
 import UserContext from '../Context'
 import PageWrapper from '../components/pageWrapper'
@@ -30,10 +28,16 @@ class HomePage extends Component{
     
     return categories.map((category) => {
       return(
-        <Category key = {category._id } name = {category.name} imageUrl = {category.imageUrl} id = {category._id}/>
+        <Category 
+          refresh = {this.refresh} 
+          key = {category._id } 
+          name = {category.name} 
+          imageUrl = {category.imageUrl} 
+          id = {category._id}/>
       )
     })
   }
+
   isAdmin=()=>{
     const { user } = this.context
     if(user){
@@ -43,6 +47,10 @@ class HomePage extends Component{
       }
     }
     this.setState({admin:false})
+  }
+
+  refresh = () => {
+    this.getAllNotDeletedCategories()
   }
 
   componentDidMount(){

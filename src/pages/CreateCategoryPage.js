@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Input from '../components/input'
-import AddImage from '../components/addImage'
 import SubmitBtn from '../components/submitBtn'
 import PageWrapper from '../components/pageWrapper'
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 class CreateCategoryPage extends Component {
     constructor(props){
@@ -46,8 +47,22 @@ class CreateCategoryPage extends Component {
         })
     }
 
+    openWidget= () => {
+        const widget = window.cloudinary.createUploadWidget({
+            cloudName: "dimitur98",
+            uploadPreset: "ReactForum"
+        }, (err,res) => {
+            if(res.event === 'success'){
+                this.setState({
+                    imageUrl: res.info.url
+                })
+            }
+        })
+        widget.open()
+      }
+
     render(){
-        const { name } = this.state
+        const { name,imageUrl } = this.state
         return(
            <PageWrapper>
                     <div class = 'center'>
@@ -58,8 +73,9 @@ class CreateCategoryPage extends Component {
                                 label="Name"
                                 id="name"
                             />
-                            <AddImage setImgUrl = {this.setImgUrl}/>
-                            <SubmitBtn name = 'Create' />
+                            <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
+                            {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
+                            {imageUrl && <SubmitBtn name = 'Create' />}
                         </form>
                     </div>
             </PageWrapper>
