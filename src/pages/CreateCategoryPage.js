@@ -4,6 +4,9 @@ import SubmitBtn from '../components/submitBtn'
 import PageWrapper from '../components/pageWrapper'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import getCookie from '../utils/cookie'
+import UserContext from '../Context'
+
 
 class CreateCategoryPage extends Component {
     constructor(props){
@@ -14,6 +17,9 @@ class CreateCategoryPage extends Component {
             name: ""
         }
     }
+
+    static contextType = UserContext
+
 
     setImgUrl = (imageUrl) => {
         this.setState({imageUrl})
@@ -33,14 +39,17 @@ class CreateCategoryPage extends Component {
             name,
             imageUrl
         } = this.state
-        await fetch('http://localhost:9999/api/category/createCategory', {
+        const {user} = this.context
+         fetch('http://localhost:9999/api/category/createCategory', {
             method: 'POST',
             body: JSON.stringify({
-              name,             
+              name,
+              author: user.id,            
               imageUrl
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': getCookie('x-auth-token')
             }
         }).then((user) => {
             this.props.history.push('/')

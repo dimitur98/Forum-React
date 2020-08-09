@@ -4,6 +4,7 @@ import Aside from '../../components/aside'
 import SubmitBtn from '../../components/submitBtn'
 import UserContext from '../../Context'
 import WarningText from '../../components/warningText'
+import getCookie from '../../utils/cookie'
 
 class ChangePasswordPage extends Component{
     constructor(props){
@@ -35,14 +36,15 @@ class ChangePasswordPage extends Component{
             newPassword
         } = this.state
         const {user} = this.context
-        await fetch(`http://localhost:9999/api/user/ChangePassword/${user.id}` , {
+         fetch(`http://localhost:9999/api/user/ChangePassword/${user.id}` , {
             method: 'PUT',
             body: JSON.stringify({
               oldPassword,
               newPassword
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': getCookie('x-auth-token')
             }
         }).then((c) => {
             console.log(c)

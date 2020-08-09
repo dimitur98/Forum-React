@@ -16,7 +16,7 @@ const deleteCommentById = async(id)=>{
 module.exports = {
     get:{
         getAllCategoriesNotDeleted: (req,res,next) => {
-            category.find().then((categories) => {
+            category.find().sort({'createdOn':-1}).then((categories) => {
                 res.send(categories)
             }).catch(next)
         },

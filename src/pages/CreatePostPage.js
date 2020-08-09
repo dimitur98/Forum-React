@@ -3,6 +3,7 @@ import PageWrapper from '../components/pageWrapper'
 import TinyMCEInput from '../components/tinyMCEInput'
 import SubmitBtn from '../components/submitBtn'
 import Input from '../components/input'
+import getCookie from '../utils/cookie'
 
 class CreatePostPage extends Component{
     constructor(props){
@@ -48,7 +49,8 @@ class CreatePostPage extends Component{
               content
             }),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': getCookie('x-auth-token')
             }
         }).then((c) => {
             this.props.history.push(`/postsByCategory/${categoryId}/${name}`)

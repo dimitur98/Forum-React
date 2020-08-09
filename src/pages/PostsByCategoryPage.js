@@ -27,6 +27,8 @@ class PostsByCategoryPage extends Component{
     renderPosts(){
         const { posts } = this.state
         return posts.map((post) => {
+        console.log(post)
+
             return(
                 <Post 
                     key = {post._id}

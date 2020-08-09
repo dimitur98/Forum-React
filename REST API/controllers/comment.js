@@ -15,7 +15,7 @@ module.exports = {
     get:{
         getCommentsByPostId: (req,res,next) => {
             const {postId} = req.params
-            comment.find({post: postId}).populate('author').then((comments) => {
+            comment.find({post: postId}).sort({'createdOn':1}).populate('author').then((comments) => {
                 res.send(comments)
             }).catch(next)
         },

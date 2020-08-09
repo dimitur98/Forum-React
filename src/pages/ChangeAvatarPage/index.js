@@ -23,7 +23,6 @@ class ChangeAvatarPage extends Component{
         if(newUrl){
             this.setState({imageUrl: newUrl})
         }
-        console.log(user)
         if(user.imageUrl === process.env.REACT_APP_DEFAULTAVATAR){
             this.setState({defaultAvatar: true})
         }else{
@@ -43,8 +42,6 @@ class ChangeAvatarPage extends Component{
 
     render(){
         const {imageUrl, defaultAvatar} = this.state
-        console.log(defaultAvatar)
-        console.log(imageUrl)
         return(
             <PageWrapper>
                 <div class="container">

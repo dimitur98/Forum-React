@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import styles from './index.module.css'
@@ -22,7 +21,6 @@ class AccountPage extends Component{
         const{user} = this.context
         const promise = await fetch(`http://localhost:9999/api/post/getPostsByUserId/${user.id}`)
         const posts = await promise.json()
-        console.log(posts)
         this.setState({
             posts
         })
@@ -31,7 +29,6 @@ class AccountPage extends Component{
     renderPosts(){
         const { posts } = this.state
         return posts.map((post) => {
-            console.log('post',post.author.email)
             return(
                 <Post 
                     key = {post._id}
@@ -49,7 +46,6 @@ class AccountPage extends Component{
     }
 
     componentDidMount(){
-        console.log("asd")
         this.getPosts()
     }
 

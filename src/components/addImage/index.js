@@ -3,6 +3,7 @@ import {withRouter} from 'react-router-dom'
 import SubmitBtn from '../submitBtn'
 import styles from './index.module.css'
 import UserContext from '../../Context'
+import getCookie from '../../utils/cookie'
 
 
 class AddImage extends Component{
@@ -31,13 +32,14 @@ class AddImage extends Component{
         // replace cloudname with your Cloudinary cloud_name
          const promise = await fetch('https://api.Cloudinary.com/v1_1/dimitur98/image/upload', options)
          const res = await promise.json()
-         await fetch(`http://localhost:9999/api/user/imgChange/${user.id}`, {
+          fetch(`http://localhost:9999/api/user/imgChange/${user.id}`, {
                     method: 'POST',
                     body: JSON.stringify({
                     url:  res.url
                 }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': getCookie('x-auth-token')
                 }
                 }).then(c => {
                     this.context.user.imageUrl = res.url

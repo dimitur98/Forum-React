@@ -44,7 +44,6 @@ const ServicesToLogIn = () => {
                 <hr />    
                 <FacebookLogin
                     appId= {process.env.REACT_APP_APPID_FACEBOOK}
-                    autoLoad={true}
                     fields="email,picture"
                     callback={responseFacebook} />,        
             </section>

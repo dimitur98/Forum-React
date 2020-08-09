@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import TinyMCEInput from '../tinyMCEInput'
 import UserContext from '../../Context'
 import { withRouter } from 'react-router-dom';
+import getCookie from '../../utils/cookie'
+
 class TinyMCEInputForm extends Component{
     constructor(props){
         super(props)
@@ -22,9 +24,8 @@ class TinyMCEInputForm extends Component{
             content,
         } = this.state
         const {postId, parentId} = this.props
-        console.log(parentId)
         const {user} = this.context
-         await fetch('http://localhost:9999/api/comment/createComment', {
+          fetch('http://localhost:9999/api/comment/createComment', {
              method: 'POST',
              body: JSON.stringify({
                author: user.id,
@@ -33,7 +34,8 @@ class TinyMCEInputForm extends Component{
                parentComment: parentId
              }),
              headers: {
-                 'Content-Type': 'application/json'
+                 'Content-Type': 'application/json',
+                 'Authorization': getCookie('x-auth-token')
              }
          }).then(() => {
             this.props.history.push(`/`);

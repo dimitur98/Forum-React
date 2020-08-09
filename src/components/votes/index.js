@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import UserContext from '../../Context'
-import getPostById from '../../utils/getPostById'
+import getCookie from '../../utils/cookie'
 
 class Votes extends Component{
     constructor(props){
@@ -25,7 +25,8 @@ class Votes extends Component{
                 userId: user.id
                 }),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': getCookie('x-auth-token')
                 }
             }).then(async(v) => {
                 const votes = await v.json()
@@ -43,7 +44,7 @@ class Votes extends Component{
     }
     componentDidMount(){
         const {postId} = this.props
-        fetch(`http://localhost:9999/api/post//getPostById/${postId}`).then(r =>{   
+        fetch(`http://localhost:9999/api/post/getPostById/${postId}`).then(r =>{   
             r.json().then(p=>{
                 const votes = p.upVotes.length - p.downVotes.length 
                 this.setState({votes})

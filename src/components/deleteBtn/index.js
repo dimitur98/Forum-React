@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import getCookie from '../../utils/cookie'
+
 class DeleteBtn extends Component{
     constructor(props){
         super(props)
@@ -9,6 +11,9 @@ class DeleteBtn extends Component{
         const {id, type} = this.props
          fetch(`http://localhost:9999/api/${type}/delete${type}/${id}`, {
             method: 'DELETE',
+            headers: {
+                'Authorization': getCookie('x-auth-token')
+            }
         }).then((c) => {
             this.props.refresh()
         })

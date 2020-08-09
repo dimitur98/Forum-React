@@ -17,6 +17,7 @@ module.exports = {
         postsByCategory: (req,res,next) => {
             const {categoryId} = req.params
             post.find({categoryId: categoryId}).populate('author').then((posts) => {
+                console.log(posts)
                 res.send(posts)
             }).catch(next)
         },
@@ -29,7 +30,7 @@ module.exports = {
         },
         getPostsByUserId: (req,res,next) => {
             const {userId} = req.params
-            post.find({author: userId}).populate('author').then(p => {
+            post.find({author: userId}).sort({'createdOn':-1}).populate('author').then(p => {
                 res.send(p)
             })
         }
