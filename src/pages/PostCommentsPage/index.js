@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import '../App.css';
-import PageWrapper from '../components/pageWrapper'
-import Comment from '../components/comment';
-import PostHeader from '../components/postHeader'
-import Votes from '../components/votes'
-import TinyMCEForm from '../components/tinyMCEForm'
-import RenderedHtmlText from '../components/renderedHtmlText'
-import getPostById from '../utils/getPostById'
-import UserContext from '../Context'
+import PageWrapper from '../../components/pageWrapper'
+import Comment from '../../components/comment';
+import PostHeader from '../../components/postHeader'
+import Votes from '../../components/votes'
+import TinyMCEForm from '../../components/tinyMCEForm'
+import RenderedHtmlText from '../../components/renderedHtmlText'
+import getPostById from '../../utils/getPostById'
+import UserContext from '../../Context'
 
 
 class PostCommentsPage extends Component{
@@ -33,7 +32,6 @@ class PostCommentsPage extends Component{
         this.setState({ 
             showHideCommentFrom: !this.state.showHideCommentFrom,
             parentId })
-        console.log(this.state.parentId)
     }
 
     getPostById = async (id) => {
@@ -43,7 +41,6 @@ class PostCommentsPage extends Component{
 
 
     getCommentsByPostId = async (postId) => {
-        console.log(postId)
         const promise = await fetch(`http://localhost:9999/api/comment/getComments/${postId}`)
         const comments = await promise.json()
         this.setState({comments})
@@ -104,7 +101,7 @@ class PostCommentsPage extends Component{
                                             <article>
                                                 <RenderedHtmlText content = { post.content } />
                                             </article>                                           
-                                               {loggedIn && <div class="px-4 pt-3"> <button class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>}
+                                               {loggedIn && <div class="px-4 pt-3"> <button data-test-id={'commentBtn'} class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>}
                                                 <div class="clearfix"></div>                                         
                                                 {this.renderComments(this.props.match.params.postId)}
                                         </div>

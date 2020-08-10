@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import PageWrapper from '../components/pageWrapper'
-import Input from '../components/input'
-import ServicesToLogIn from '../components/servicesToLogIn'
-import LoginOptions from '../components/loginOptions'
-import SubmitBtn from '../components/submitBtn'
-import UserContext from '../Context'
-import authenticate from '../utils/authenticate'
+import {withRouter} from 'react-router-dom'
+import PageWrapper from '../../components/pageWrapper'
+import Input from '../../components/input'
+import ServicesToLogIn from '../../components/servicesToLogIn'
+import SubmitBtn from '../../components/submitBtn'
+import UserContext from '../../Context'
+import authenticate from '../../utils/authenticate'
+import WarningTextBox from '../../components/warningTextBox'
+import styles from './index.module.css'
 
 class LoginPage extends Component {
     constructor(props){
@@ -14,7 +15,8 @@ class LoginPage extends Component {
 
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            invalidPassword: false
         }
     }
 
@@ -42,19 +44,24 @@ class LoginPage extends Component {
                 this.context.logIn(user)
                 this.props.history.push('/')
             }, (e) => {
-               console.log(e)
+               if(e.err==="Invalid password"){
+                   this.setState({
+                       invalidPassword:true
+                   })
+               }
             }
         )
+        
     }
 
 
     render() {
-    const {email, password} = this.state
+    const {email, password, invalidPassword} = this.state
 
         return(
            <PageWrapper>
-                <div class='center'>
-                <div>asd</div>
+                <div className={styles.center}>
+                {invalidPassword && (<WarningTextBox text='Invalid password!' />)}
                     <h1>Login</h1>
                             <section>
                                 <form onSubmit={this.handleSubmit}>
@@ -74,8 +81,7 @@ class LoginPage extends Component {
                                         id="password"
                                         type="password"
                                     />
-                                    <SubmitBtn name='Log In' />
-                                    <LoginOptions />
+                                    <SubmitBtn id='button' name='Log In' />
                                 </form>
                             </section>      
                         </div>
@@ -85,4 +91,4 @@ class LoginPage extends Component {
     }
 }
 
-export default LoginPage
+export default withRouter(LoginPage)

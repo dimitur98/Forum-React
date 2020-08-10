@@ -3,6 +3,7 @@ import {useHistory} from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login';
 import authenticate from '../../utils/authenticate'
 import UserContext from '../../Context'
+import styles from './index.module.css'
 
 
 const ServicesToLogIn = () => {
@@ -38,7 +39,7 @@ const ServicesToLogIn = () => {
       
 
     return(
-        <div class=" center">
+        <div className={styles.center}>
             <section>
                 <h4>Use another service to log in.</h4>
                 <hr />    

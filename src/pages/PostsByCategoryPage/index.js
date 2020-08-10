@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import '../App.css';
-import PageWrapper from '../components/pageWrapper'
-import Post from '../components/posts'
-import UserContext from '../Context'
+import PageWrapper from '../../components/pageWrapper'
+import Post from '../../components/posts'
+import UserContext from '../../Context'
 
 class PostsByCategoryPage extends Component{
     constructor(props){
@@ -26,9 +25,9 @@ class PostsByCategoryPage extends Component{
 
     renderPosts(){
         const { posts } = this.state
+        var counter = 0
         return posts.map((post) => {
-        console.log(post)
-
+            counter+=1
             return(
                 <Post 
                     key = {post._id}
@@ -40,6 +39,7 @@ class PostsByCategoryPage extends Component{
                     commentsCount = {0} 
                     authorId = {post.author._id}
                     refresh = {this.refresh}
+                    testId = {counter}
                 />
             )
         })

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import PageWrapper from '../components/pageWrapper'
-import TinyMCEInput from '../components/tinyMCEInput'
-import SubmitBtn from '../components/submitBtn'
-import Input from '../components/input'
-import getCookie from '../utils/cookie'
+import {withRouter} from 'react-router-dom'
+import PageWrapper from '../../components/pageWrapper'
+import TinyMCEInput from '../../components/tinyMCEInput'
+import SubmitBtn from '../../components/submitBtn'
+import Input from '../../components/input'
+import getCookie from '../../utils/cookie'
+import styles from './index.module.css'
 
 class CreatePostPage extends Component{
     constructor(props){
@@ -21,7 +23,7 @@ class CreatePostPage extends Component{
     }
     getCategoryById = async() => {
         const {categoryId} = this.props.match.params
-
+        console.log('props',this.props)
         const promise = await fetch(`http://localhost:9999/api/category/getCategoryById/${categoryId}`)
         const category = await promise.json()
         console.log('category',category)
@@ -71,7 +73,7 @@ class CreatePostPage extends Component{
         const {name} = this.state
         return(
             <PageWrapper>
-                    <div class = 'center container'>
+                    <div className={styles.container}>
                         <form onSubmit = {this.handleSubmit}>
                             
                             <Input       
@@ -92,4 +94,4 @@ class CreatePostPage extends Component{
     }
 }
 
-export default CreatePostPage
+export default withRouter(CreatePostPage)

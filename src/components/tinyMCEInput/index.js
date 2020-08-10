@@ -22,15 +22,14 @@ class TinyMCEInput extends Component{
     render(){
         const apiKey  = process.env.REACT_APP_TINYMCE_APYKEY
         console.log(process.env.REACT_APP_TINYMCE_APYKEY)
-        return(    
-            <>   
-                <div ></div>   
+        return(        
+            <div data-test-id={'tinyMceInput'}>   
                 <Editor 
                     apiKey = { apiKey }
                     plugins = "image paste table link code media"
                     onEditorChange={this.handleEditorChange}
                 />
-            </>                   
+            </div>                   
         )
     }
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {withRouter} from 'react-router-dom'
 import PageWrapper from '../../components/pageWrapper'
 import Aside from '../../components/aside'
 import SubmitBtn from '../../components/submitBtn'
@@ -102,4 +103,4 @@ class ChangePasswordPage extends Component{
     }
 }
 
-export default ChangePasswordPage
+export default withRouter(ChangePasswordPage)

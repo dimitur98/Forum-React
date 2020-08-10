@@ -77,7 +77,7 @@ class AddImage extends Component{
                     <br/>
                     <input  type='file' onChange={(e) => this.loadImg(e)} name="file1" id="input1" />
                     <SubmitBtn name = "Upload"/>
-                    {done && <span class='text-success'>Done</span>}
+                    {done && <span className='text-success'>Done</span>}
                 </form>
            </>
         )

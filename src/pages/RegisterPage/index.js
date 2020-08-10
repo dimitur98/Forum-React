@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import PageWrapper from '../components/pageWrapper'
-import Input from '../components/input'
-import ServicesToLogIn from '../components/servicesToLogIn'
-import SubmitBtn from '../components/submitBtn'
+import {withRouter} from 'react-router-dom'
+import PageWrapper from '../../components/pageWrapper'
+import Input from '../../components/input'
+import ServicesToLogIn from '../../components/servicesToLogIn'
+import SubmitBtn from '../../components/submitBtn'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import WarningTextBox from '../../components/warningTextBox'
+import WarningText from '../../components/warningText'
+import authenticate from '../../utils/authenticate'
+import styles from './index.module.css'
 
 class RegisterPage extends Component{
     constructor(props) {
@@ -15,7 +20,8 @@ class RegisterPage extends Component{
           password: "",
           rePassword: "",
           imageUrl: "",
-          passwordsMatch: false
+          passwordsMatch: false,
+          takenEmail: false
         }
       }
     
@@ -27,33 +33,36 @@ class RegisterPage extends Component{
       }
 
       register = async(event) => {
-          event.preventDefault()
+        event.preventDefault()
 
-          const{
-              email,
-              password,
-              imageUrl
-          } = this.state
-          await fetch('http://localhost:9999/api/user/register', {
-              method: 'POST',
-              body: JSON.stringify({
+        const{
+            email,
+            password,
+            imageUrl
+        } = this.state
+        await authenticate('http://localhost:9999/api/user/register', {
                 email,
                 password,
                 imageUrl,
                 faceBook: false
-              }),
-              headers: {
-                  'Content-Type': 'application/json'
-              }
-          }).then((user) => {
-              this.props.history.push('/Login')
-          })
+            }, (user) => {
+                this.context.logIn(user)
+                this.props.history.push('/')
+            }, (e) => {
+                if(e.err === 'Email exists'){
+                    this.setState({takenEmail: true})
+                }
+            }
+        )
+          
       }
       
 
       isPasswordsMatch = () => {
           const {password, rePassword, email} = this.state
-          if(password === rePassword && email){
+          console.log('1',password)
+          console.log('2',rePassword)
+          if(password === rePassword){
               this.setState({passwordsMatch: true})
           }else{
               this.setState({passwordsMatch: false})
@@ -80,12 +89,14 @@ class RegisterPage extends Component{
             password,
             rePassword,
             passwordsMatch,
-            imageUrl
+            imageUrl,
+            takenEmail
           } = this.state
 
         return(
             <PageWrapper>
-                <div  class="center">
+                <div  className = {styles.center}>
+                    {takenEmail && <WarningTextBox text='Email is already taken!' />}
                     <h1>Register</h1>
                             <form onSubmit={this.register}>
                                 <h4>Create a new account.</h4>
@@ -112,9 +123,11 @@ class RegisterPage extends Component{
                                     type="password"
                                     isPasswordsMatch = {this.isPasswordsMatch}
                                 />
+                                {!passwordsMatch && <WarningText text="Passwords don't match!"/>}
+                                <br/>
                                 <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
                                 {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
-                                {imageUrl && passwordsMatch  && (<SubmitBtn  name='Register'/>) }
+                                {imageUrl && passwordsMatch  && (<SubmitBtn id='button'  name='Register'/>) }
                             </form>
                         </div>
                         <ServicesToLogIn />
@@ -123,4 +136,4 @@ class RegisterPage extends Component{
     }
 }
 
-export default RegisterPage
+export default withRouter(RegisterPage)

@@ -2,20 +2,22 @@ import React, { Fragment, Component } from 'react'
 import {
     BrowserRouter,
     Route,
-    Switch
+    Switch,
+    Redirect
 } from 'react-router-dom'
 import Head from './components/head'
-import HomePage from './pages/HomePage'
-import PostCommentsPage from './pages/PostCommentsPage'
-import PostsByCategoryPage from './pages/PostsByCategoryPage'
-import RegisterPage from './pages/RegisterPage'
-import LoginPage from './pages/LoginPage'
-import CreateCategoryPage from './pages/CreateCategoryPage'
-import CreatePostPage from './pages/CreatePostPage'
+import HomePage from './pages/HomePage/index'
+import PostCommentsPage from './pages/PostCommentsPage/index'
+import PostsByCategoryPage from './pages/PostsByCategoryPage/index'
+import RegisterPage from './pages/RegisterPage/index'
+import LoginPage from './pages/LoginPage/index'
+import CreateCategoryPage from './pages/CreateCategoryPage/index'
+import CreatePostPage from './pages/CreatePostPage/index'
 import AccountPage from './pages/AccountPage/index'
 import ChangePasswordPage from './pages/ChangePasswordPage/index'
 import ChangeAvatarPage from './pages/ChangeAvatarPage'
 import UserContext from './Context'
+import PrivacyPage from './pages/PrivacyPage'
 
 
 
@@ -34,13 +36,28 @@ class Navigation extends Component {
                         <Route  path="/postsByCategory/:categoryId/:categoryName" component = { PostsByCategoryPage } />
                         <Route exact path="/" component = { HomePage } />
                         <Route path="/PostComments/:postId" component = { PostCommentsPage } />
-                        <Route path="/Register" component = { RegisterPage } />
-                        <Route path="/CreateCategory" component = { loggedIn ? CreateCategoryPage : LoginPage } />
-                        <Route path="/CreatePost/:categoryId/:authorId" component = { loggedIn ? CreatePostPage : LoginPage } />
-                        <Route path="/Login" component = { LoginPage } />
-                        <Route path="/Account" component = { AccountPage } />
-                        <Route path="/ChangePassword" component = { ChangePasswordPage } />
-                        <Route path="/ChangeAvatar" component = { ChangeAvatarPage } />
+                        <Route path="/Register">
+                            { loggedIn ? (<Redirect to='/'/>) :(<RegisterPage/>) } 
+                        </Route>
+                        <Route path="/CreateCategory">
+                            { loggedIn ? (<CreateCategoryPage/>) :(<Redirect to='/Login'/>) } 
+                        </Route>
+                        <Route path="/CreatePost/:categoryId/:authorId">
+                            { loggedIn ? (<CreatePostPage/>) :<Redirect to='/Login'/> } 
+                        </Route>
+                        <Route path="/Login">
+                            { loggedIn ? (<Redirect to="/"/>) :(<LoginPage/>) } 
+                        </Route>
+                        <Route path="/Account">
+                            { loggedIn ? (<AccountPage/>) :(<Redirect to='/Login'/>) } 
+                        </Route>
+                        <Route path="/ChangePassword">
+                            { loggedIn ? (<ChangePasswordPage/>) :(<Redirect to='/Login'/>) }
+                        </Route>
+                        <Route path="/ChangeAvatar" component = { ChangeAvatarPage }>
+                            { loggedIn ? (<ChangeAvatarPage/>) :(<Redirect to='/Login'/>) }
+                        </Route>
+                        <Route path='/Privacy' component={PrivacyPage}/>
                     </Switch>
                 </BrowserRouter>
             </Fragment>

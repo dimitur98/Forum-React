@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import Input from '../components/input'
-import SubmitBtn from '../components/submitBtn'
-import PageWrapper from '../components/pageWrapper'
+import {withRouter} from 'react-router-dom'
+import Input from '../../components/input'
+import SubmitBtn from '../../components/submitBtn'
+import PageWrapper from '../../components/pageWrapper'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import getCookie from '../utils/cookie'
-import UserContext from '../Context'
+import getCookie from '../../utils/cookie'
+import UserContext from '../../Context'
+import styles from './index.module.css'
 
 
 class CreateCategoryPage extends Component {
@@ -74,7 +76,7 @@ class CreateCategoryPage extends Component {
         const { name,imageUrl } = this.state
         return(
            <PageWrapper>
-                    <div class = 'center'>
+                    <div className = {styles.center}>
                         <form onSubmit = {this.handleSubmit}>
                             <Input       
                                 value = {name}                         
@@ -82,7 +84,7 @@ class CreateCategoryPage extends Component {
                                 label="Name"
                                 id="name"
                             />
-                            <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
+                            <button className="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
                             {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
                             {imageUrl && <SubmitBtn name = 'Create' />}
                         </form>
@@ -92,4 +94,4 @@ class CreateCategoryPage extends Component {
     }
 }
 
-export default CreateCategoryPage
+export default withRouter(CreateCategoryPage)

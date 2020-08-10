@@ -2,6 +2,7 @@ import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import DeleteBtn from '../deleteBtn'
 import UserContext from '../../Context'
+import styles from './index.module.css'
 
 
 const Category = (props) =>{
@@ -23,10 +24,10 @@ const Category = (props) =>{
 
     return(
         <div class="col-md-4 media">
-            <img src={props.imageUrl} width="100" class="mr-3" alt={props.name} />
+            <img src={props.imageUrl} className={styles.categoryImg} alt={props.name} />
             <div class="media-body">
-                <h5 class="mt-0">
-                    <Link to ={`/postsByCategory/${props.id}/${props.name}`} >
+                <h5 data-test-id={`category-${props.testId}`} class="mt-0">
+                    <Link  to ={`/postsByCategory/${props.id}/${props.name}`} >
                         {props.name}
                     </Link>
                     {admin && <DeleteBtn refresh = {props.refresh} type='category' id={props.id}/>}

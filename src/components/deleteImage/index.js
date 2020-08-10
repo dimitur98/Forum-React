@@ -6,11 +6,6 @@ import getCookie from '../../utils/cookie'
 
 
 class DeleteImage extends Component{
-    constructor(props){
-        super(props)
-    }
-
-
     static contextType = UserContext
 
     handleSubmit = (event)=>{

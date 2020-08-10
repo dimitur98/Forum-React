@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 import PageWrapper from '../../components/pageWrapper'
 import Aside from '../../components/aside'
 import DeleteImage from '../../components/deleteImage'

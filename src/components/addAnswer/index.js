@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import UserContext from '../../Context'
+import styles from './index.module.css'
 
 class AddAnswer extends Component {
     constructor(props){
@@ -19,8 +20,8 @@ class AddAnswer extends Component {
     render(){
         return(
             <>
-                <div class="text-muted small ml-3">                                      
-                    <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onClick={this.clickMe}><i class="fa fa-plus"></i>&nbsp; Answer</button> </div>                                       
+                <div className = {styles.textMuted}>                                      
+                    <div class={styles.btn}> <button type="button" class="btn btn-secondary" onClick={this.clickMe}><i class="fa fa-plus"></i>&nbsp; Answer</button> </div>                                       
                 </div>
                 
             </>       

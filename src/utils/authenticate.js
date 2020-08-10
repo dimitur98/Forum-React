@@ -19,7 +19,7 @@ const authenticate = async (url, body, onSuccess, onFailure) => {
         imageUrl: response.imageUrl
       })
     } else {
-      onFailure()
+      onFailure(response)
     }
   } catch(e) {
     onFailure(e)

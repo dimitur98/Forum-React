@@ -25,27 +25,25 @@ const Comment = (props) => {
         isAuthor()
     },[])
     return(
-        <div>
-            <div class="container-fluid mt-100">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="card mb-4">
-                                    <PostHeader  email = {props.email} createdOn = {props.createdOn} imageUrl = {props.imageUrl}>
-                                        {context.loggedIn && <AddAnswer showCommentInput ={() => props.showCommentInput(props.id)} />}
-                                        {author && <DeleteBtn refresh = {props.refresh} id = {props.id} type={'Comment'}/>}
-                                    </PostHeader>
-                                    <div class="card-body">
-                                        <article>
-                                            <RenderedHtmlText content = {props.content} />
-                                        </article>
-                                        {props.children}
-                                    </div>
-                                </div>
-                            </div>
+        <div >
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <PostHeader  email = {props.email} createdOn = {props.createdOn} imageUrl = {props.imageUrl}>
+                            {context.loggedIn && <AddAnswer showCommentInput ={() => props.showCommentInput(props.id)} />}
+                            {author && <DeleteBtn refresh = {props.refresh} id = {props.id} type={'Comment'}/>}
+                        </PostHeader>
+                        <div class="card-body">
+                            <article>
+                                <RenderedHtmlText content = {props.content} />
+                            </article>
+                            {props.children}
                         </div>
                     </div>
-                
+                </div>
+            </div>
         </div>
+                
     )
 }
 

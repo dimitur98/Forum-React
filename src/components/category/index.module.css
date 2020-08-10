@@ -1,0 +1,9 @@
+.categoryImg{
+    margin-right: 1rem !important;
+    width:150px
+}
+
+.media-body{
+    -ms-flex: 1;
+    flex: 1;
+}

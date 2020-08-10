@@ -28,7 +28,7 @@ class Header extends Component{
             <header>
             <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
-                    <a class="navbar-brand" >Forum</a>
+                    <a class="navbar-brand" >DForum</a>
             
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         

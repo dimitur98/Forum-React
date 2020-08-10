@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home page should not show button 'Add category' 1`] = `
+<pageWrapper
+  isAdmin={[Function]}
+>
+  <div
+    className="container"
+  >
+    <main
+      className="pb-3"
+      role="main"
+    >
+      <div
+        className="text-center"
+      >
+        <h1
+          className="display-3"
+        >
+          DForum
+        </h1>
+      </div>
+      <hr />
+      <div
+        className="row"
+      />
+    </main>
+  </div>
+</pageWrapper>
+`;
+
+exports[`Home page should show button 'Add category' only for admins 1`] = `
+<pageWrapper
+  isAdmin={[Function]}
+>
+  <div
+    className="container"
+  >
+    <main
+      className="pb-3"
+      role="main"
+    >
+      <div
+        className="text-center"
+      >
+        <h1
+          className="display-3"
+        >
+          DForum
+        </h1>
+        <a
+          class="btn btn-primary btn-lg"
+          href="/CreateCategory"
+          onClick={[Function]}
+        >
+          Add new category
+        </a>
+      </div>
+      <hr />
+      <div
+        className="row"
+      />
+    </main>
+  </div>
+</pageWrapper>
+`;

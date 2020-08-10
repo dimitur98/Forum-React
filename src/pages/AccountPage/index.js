@@ -57,7 +57,7 @@ class AccountPage extends Component{
                     <div class='container'>
                     <Aside />
                         <div className={styles['inner-container']}>
-                        {this.renderPosts()}
+                            {this.renderPosts()}
                         </div>
                     </div>
                     <Footer />

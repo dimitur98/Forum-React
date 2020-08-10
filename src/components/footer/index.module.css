@@ -1,0 +1,23 @@
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    line-height: 60px; /* Vertically center the text there */
+    border-top: 1px solid #e5e5e5;
+}
+
+.center{
+    text-align: center;
+}
+.text{
+    margin-bottom: -20px
+}
+.left-logo{
+    float: left
+}
+.right-logo{
+    float: right
+}

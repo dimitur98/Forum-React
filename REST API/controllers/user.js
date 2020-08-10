@@ -60,30 +60,30 @@ module.exports = {
     post: {
         register: async(req, res, next) => {
             const { email, password, imageUrl, faceBook} = req.body;
-            console.log(email)
             models.User.findOne({ email })
             .then((user) => {
                 if(user){
                     res.status(409).send({err: 'Email exists'});
                     return;
-                }                                 
+                }else{
+                    models.User.create({ email, password, imageUrl })
+                    .then(async(createdUser) => {
+                        console.log(faceBook)
+                        if(faceBook){
+                            const a = await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
+                        }else{
+                            utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
+                        }
+                        res.send(createdUser)
+                    })
+                    .catch(err=>{
+                        console.log(err)
+                        res.send(err)
+                    })    
+                }                               
             })
             .catch(next);
-            models.User.create({ email, password, imageUrl })
-                .then(async(createdUser) => {
-                    console.log(faceBook)
-                    if(faceBook){
-                        const a = await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
-                        console.log(a)
-                    }else{
-                        utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
-                    }
-                    res.send(createdUser)
-                })
-                .catch(err=>{
-                    console.log(err)
-                    res.send(err)
-                })    
+            
         },
 
         login: (req, res, next) => {
@@ -92,7 +92,7 @@ module.exports = {
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
                     if (!match) {
-                        res.status(401).send('Invalid password');
+                        res.status(401).send({err:'Invalid password'});
                         return;
                     }
                     if(!user.isConfirmed){
