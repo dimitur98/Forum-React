@@ -59,6 +59,7 @@ class AddImage extends Component{
 
     componentDidMount(){
         const {user} = this.context
+        console.log(user)
         if(user){
             this.setState({imageUrl: user.imageUrl})
         }else{
