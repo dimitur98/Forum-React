@@ -6,8 +6,8 @@ import ServicesToLogIn from '../../components/servicesToLogIn'
 import SubmitBtn from '../../components/submitBtn'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import WarningTextBox from '../../components/warningTextBox'
-import WarningText from '../../components/warningText'
+import DangerTextBox from '../../components/dangerTextBox'
+import DangerText from '../../components/dangerText'
 import authenticate from '../../utils/authenticate'
 import styles from './index.module.css'
 
@@ -34,7 +34,7 @@ class RegisterPage extends Component{
 
       register = async(event) => {
         event.preventDefault()
-
+        console.log(this.props)
         const{
             email,
             password,
@@ -46,8 +46,10 @@ class RegisterPage extends Component{
                 imageUrl,
                 faceBook: false
             }, (user) => {
-                this.context.logIn(user)
-                this.props.history.push('/')
+                this.props.history.push({
+                    pathname: '/Login',
+                    data: true
+                })
             }, (e) => {
                 if(e.err === 'Email exists'){
                     this.setState({takenEmail: true})
@@ -96,7 +98,7 @@ class RegisterPage extends Component{
         return(
             <PageWrapper>
                 <div  className = {styles.center}>
-                    {takenEmail && <WarningTextBox text='Email is already taken!' />}
+                    {takenEmail && <DangerTextBox text='Email is already taken!' />}
                     <h1>Register</h1>
                             <form onSubmit={this.register}>
                                 <h4>Create a new account.</h4>
@@ -123,7 +125,7 @@ class RegisterPage extends Component{
                                     type="password"
                                     isPasswordsMatch = {this.isPasswordsMatch}
                                 />
-                                {!passwordsMatch && <WarningText text="Passwords don't match!"/>}
+                                {!passwordsMatch && <DangerText text="Passwords don't match!"/>}
                                 <br/>
                                 <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
                                 {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  

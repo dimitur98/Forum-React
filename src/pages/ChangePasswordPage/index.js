@@ -4,7 +4,7 @@ import PageWrapper from '../../components/pageWrapper'
 import Aside from '../../components/aside'
 import SubmitBtn from '../../components/submitBtn'
 import UserContext from '../../Context'
-import WarningText from '../../components/warningText'
+import WarningText from '../../components/dangerText'
 import getCookie from '../../utils/cookie'
 
 class ChangePasswordPage extends Component{

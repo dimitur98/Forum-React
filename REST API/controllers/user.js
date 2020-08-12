@@ -72,9 +72,10 @@ module.exports = {
                         if(faceBook){
                             const a = await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
                         }else{
-                            utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
+                            const a = await utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
+                            console.log(a)
                         }
-                        res.send(createdUser)
+                        res.header("Authorization", 'notConfirmed').send(createdUser)
                     })
                     .catch(err=>{
                         console.log(err)

@@ -1,8 +1,8 @@
 import React from 'react'
 
-const WarningTextBox =({text}) =>{
+const WarningTextBox = ({text}) => {
     return(
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-danger" role="alert">
             {text}
         </div>
     )

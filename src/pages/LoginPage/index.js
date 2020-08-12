@@ -6,7 +6,8 @@ import ServicesToLogIn from '../../components/servicesToLogIn'
 import SubmitBtn from '../../components/submitBtn'
 import UserContext from '../../Context'
 import authenticate from '../../utils/authenticate'
-import WarningTextBox from '../../components/warningTextBox'
+import DangerTextBox from '../../components/dangerTextBox'
+import WarninTextBox from '../../components/warningTextBox'
 import styles from './index.module.css'
 
 class LoginPage extends Component {
@@ -53,15 +54,16 @@ class LoginPage extends Component {
         )
         
     }
-
+    
 
     render() {
     const {email, password, invalidPassword} = this.state
-
+    const { data } = this.props.location
         return(
            <PageWrapper>
                 <div className={styles.center}>
-                {invalidPassword && (<WarningTextBox text='Invalid password!' />)}
+                {invalidPassword && (<DangerTextBox text='Invalid password!' />)}
+                {data && (<WarninTextBox text='Please confirm your email!'/>)}
                     <h1>Login</h1>
                             <section>
                                 <form onSubmit={this.handleSubmit}>
