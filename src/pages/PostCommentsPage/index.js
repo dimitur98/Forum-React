@@ -48,19 +48,14 @@ class PostCommentsPage extends Component{
 
     renderComments(postId){  
         const comments = this.state.comments
-        const subComments = comments.filter(c => c.parentComment == postId) 
-        if(subComments.length == 0){return}
+        const subComments = comments.filter(c => c.parentComment === postId) 
+        if(subComments.length === 0){return}
         return subComments.map((comment) => {   
         return(    
                 <div>                       
                     <Comment 
                         key = {comment._id} 
-                        email = {comment.author.email}
-                        createdOn = {new Date(comment.createdOn).toLocaleString()}
-                        imageUrl = {comment.author.imageUrl}
-                        content = {comment.content}
-                        id = {comment._id}
-                        authorId = {comment.author._id}
+                        {...comment}
                         showCommentInput = {() => this.showCommentInput(comment._id)}
                         refresh = {this.refresh}
                     >
@@ -87,7 +82,7 @@ class PostCommentsPage extends Component{
         const postId = this.props.match.params.postId
         const {loggedIn} = this.context
         return(
-            <PageWrapper>
+            <PageWrapper title={`${post.name} comments - DForum`}>
                     <div class='container'>
                         <h1>{post.name}</h1>
                         <div class="container-fluid mt-100">

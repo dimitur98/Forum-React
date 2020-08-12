@@ -48,14 +48,13 @@ class ChangePasswordPage extends Component{
                 'Authorization': getCookie('x-auth-token')
             }
         }).then((c) => {
-            console.log(c)
             this.props.history.push('/Account')
         })
     }
 
     checkPasswords =() =>{
         const {newPassword, reNewPassword} = this.state
-        if(newPassword === reNewPassword && newPassword != ''){
+        if(newPassword === reNewPassword && newPassword !== ''){
             this.setState({match:true})
         }else{
             this.setState({match:false})
@@ -66,7 +65,7 @@ class ChangePasswordPage extends Component{
         const {user} = this.context
         const {oldPassword, newPassword, reNewPassword, match} = this.state
         return(
-            <PageWrapper>
+            <PageWrapper title='Change your password - DForum'>
                 <div class="container">
                     <Aside/>
                     <form onSubmit={this.handleSubmit}>

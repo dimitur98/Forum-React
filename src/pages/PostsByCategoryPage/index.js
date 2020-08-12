@@ -31,13 +31,7 @@ class PostsByCategoryPage extends Component{
             return(
                 <Post 
                     key = {post._id}
-                    id = {post._id}
-                    content = {post.content.substring(0,500)+'...'}
-                    name = {post.name} 
-                    authorEmail = {post.author.email} 
-                    createdOn = {new Date(post.createdOn).toLocaleString()} 
-                    commentsCount = {0} 
-                    authorId = {post.author._id}
+                    {...post}
                     refresh = {this.refresh}
                     testId = {counter}
                 />
@@ -59,7 +53,7 @@ class PostsByCategoryPage extends Component{
        const { user } = this.context
        
         return (
-            <PageWrapper>
+            <PageWrapper title={`Posts by ${categoryName} - DForum`}>
                     <div className='container'>
                         <main role="main" className="pb-3">
                             <h1 className="display-3">Title: {categoryName} 

@@ -66,7 +66,7 @@ class HomePage extends Component{
     const {admin} = this.state
     const {loggedIn} = this.context
     return (
-      <PageWrapper isAdmin = {this.isAdmin}>
+      <PageWrapper title='Home - DForum'>
           <div className="container">
               <main role="main" className="pb-3">
                   <div className="text-center">

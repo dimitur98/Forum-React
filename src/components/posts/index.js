@@ -12,25 +12,24 @@ import UserContext from '../../Context'
 
 const Post = (props) => {
     const [commentsCount, setcommentsCount] = useState(0)
-    const [author, setAuthor] = useState(false)
-    const {id, name, content, authorEmail, createdOn, refresh,testId} = props 
+    const [creator, setCreator] = useState(false)
+    const {_id, name, content, author, createdOn, refresh,testId} = props 
     const context = useContext(UserContext)
 
     const getComments = async() => {
-        const promise = await fetch(`http://localhost:9999/api/comment/getComments/${id}`)
+        const promise = await fetch(`http://localhost:9999/api/comment/getComments/${_id}`)
         const comments = await promise.json()
 
         setcommentsCount(comments.length)
     }
-
+                    
     const isAuthor = () =>{
         const {user} = context
-        const {authorId} = props
+        const authorId = author._id
         
-        console.log(user)
         if(user){
             if(user.id === authorId || user.role === 'admin' ){
-                setAuthor(true)
+                setCreator(true)
             }
         }
     }       
@@ -39,15 +38,14 @@ const Post = (props) => {
         getComments()
         isAuthor()
       },[])
-
     return(
         <div className="media-body">
-            <h4  className="media-heading"><Link data-test-id={`post-${testId}`} to = {`/PostComments/${id}`}>{name}</Link> {author && <DeleteBtn refresh = {refresh} type={'Post'} id={id}/>}</h4>
+            <h4  className="media-heading"><Link data-test-id={`post-${testId}`} to = {`/PostComments/${_id}`}>{name}</Link> {creator && <DeleteBtn refresh = {refresh} type={'Post'} id={_id}/>}</h4>
             
-            <RenderedHtmlText content = {content}/>
+            <RenderedHtmlText content = {content.substring(0,500)+'...'}/>
             <ul className="list-inline list-unstyled text-right">
                 <li className="list-inline-item">
-                    <FontAwesomeIcon icon={faUserEdit} /> {authorEmail}
+                    <FontAwesomeIcon icon={faUserEdit} /> {author.email}
                 </li>
                 <li className="list-inline-item">
                     <FontAwesomeIcon icon={faCalendarAlt} /> {createdOn}

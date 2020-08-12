@@ -43,7 +43,7 @@ class ChangeAvatarPage extends Component{
     render(){
         const {imageUrl, defaultAvatar} = this.state
         return(
-            <PageWrapper>
+            <PageWrapper title='Change your avatar - DForum'>
                 <div class="container">
                     <Aside />
                     <div class = 'center'>

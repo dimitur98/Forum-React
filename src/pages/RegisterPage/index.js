@@ -10,7 +10,6 @@ import DangerTextBox from '../../components/dangerTextBox'
 import DangerText from '../../components/dangerText'
 import authenticate from '../../utils/authenticate'
 import styles from './index.module.css'
-
 class RegisterPage extends Component{
     constructor(props) {
         super(props)
@@ -21,7 +20,10 @@ class RegisterPage extends Component{
           rePassword: "",
           imageUrl: "",
           passwordsMatch: false,
-          takenEmail: false
+          takenEmail: false,
+          requiredEmail: false,
+          requiredPassword: false,
+          requiredImageUrl: false,
         }
       }
     
@@ -34,13 +36,20 @@ class RegisterPage extends Component{
 
       register = async(event) => {
         event.preventDefault()
-        console.log(this.props)
         const{
             email,
             password,
-            imageUrl
+            imageUrl,
+            requiredEmail,
+            requiredPassword,
+            requiredImageUrl
         } = this.state
-        await authenticate('http://localhost:9999/api/user/register', {
+        
+        email ? this.setState({requiredEmail:false}) : this.setState({requiredEmail: true})
+        password ? this.setState({requiredPassword:false}) : this.setState({requiredPassword: true})
+        imageUrl ? this.setState({requiredImageUrl:false}) : this.setState({requiredImageUrl: true})
+        if(!requiredEmail && !requiredPassword && !requiredImageUrl){
+            await authenticate('http://localhost:9999/api/user/register', {
                 email,
                 password,
                 imageUrl,
@@ -56,12 +65,12 @@ class RegisterPage extends Component{
                 }
             }
         )
-          
+        }       
       }
       
 
       isPasswordsMatch = () => {
-          const {password, rePassword, email} = this.state
+          const {password, rePassword} = this.state
           console.log('1',password)
           console.log('2',rePassword)
           if(password === rePassword){
@@ -92,11 +101,14 @@ class RegisterPage extends Component{
             rePassword,
             passwordsMatch,
             imageUrl,
-            takenEmail
+            takenEmail,
+            requiredEmail,
+            requiredPassword,
+            requiredImageUrl
           } = this.state
 
         return(
-            <PageWrapper>
+            <PageWrapper title='Register - DForum'>
                 <div  className = {styles.center}>
                     {takenEmail && <DangerTextBox text='Email is already taken!' />}
                     <h1>Register</h1>
@@ -109,6 +121,7 @@ class RegisterPage extends Component{
                                     label="Email"
                                     id="email"
                                 />
+                                {requiredEmail && <DangerText text='Email is required!'/>}
                                 <Input
                                     value={password}
                                     onChange={(e) => this.onChange(e, 'password')}
@@ -117,6 +130,7 @@ class RegisterPage extends Component{
                                     type="password"
                                     isPasswordsMatch = {this.isPasswordsMatch}
                                 />
+                                {requiredPassword && <DangerText text='Password is required!'/>}
                                 <Input
                                     value={rePassword}
                                     onChange={(e) => this.onChange(e, 'rePassword')}
@@ -128,8 +142,10 @@ class RegisterPage extends Component{
                                 {!passwordsMatch && <DangerText text="Passwords don't match!"/>}
                                 <br/>
                                 <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
-                                {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
-                                {imageUrl && passwordsMatch  && (<SubmitBtn id='button'  name='Register'/>) }
+                                {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />} 
+                                <br/>
+                                {requiredImageUrl && <DangerText text='Image is required!'/>} 
+                                <SubmitBtn id='button'  name='Register'/>
                             </form>
                         </div>
                         <ServicesToLogIn />

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import Header from '../../components/header'
-import Footer from '../../components/footer'
+import PageWrapper from '../../components/pageWrapper'
 import styles from './index.module.css'
 import UserContext from '../../Context'
 import Post from '../../components/posts'
@@ -51,17 +50,14 @@ class AccountPage extends Component{
 
     render(){
         return(
-            
-            <>
-                    <Header />
-                    <div class='container'>
-                    <Aside />
-                        <div className={styles['inner-container']}>
-                            {this.renderPosts()}
-                        </div>
+            <PageWrapper title='My account - DForum'>
+                <div class='container'>
+                <Aside />
+                    <div className={styles['inner-container']}>
+                        {this.renderPosts()}
                     </div>
-                    <Footer />
-             </>
+                </div>
+            </PageWrapper>
         )
     }
 }

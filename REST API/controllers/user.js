@@ -14,14 +14,21 @@ module.exports = {
         },
         confirmEmail: async (req, res, next) => {
             const {uuid, userId} = req.params
-            console.log(userId)
-            models.User.findOne({ _id: userId }).then( async (user) => {
-                if(user.uuid.toString() === uuid.toString()){
-                   await models.User.findOneAndUpdate({_id: userId}, {isConfirmed: true})
-                   return res.send('success')
-                }
-                return res.send('Confirmation emial is not valid!')
-            })
+            console.log(uuid)
+            try{
+                models.User.findOne({ _id: userId }).then( async (user) => {
+                    if(user.uuid.toString() === uuid.toString()){
+                    await models.User.findOneAndUpdate({_id: userId}, {isConfirmed: true})
+                    return res.send('success')
+                    }
+                    return res.status(401).send({err:'Confirmation email is not valid!',status: 401})
+                }).catch(() => {
+                    return res.status(401).send({err:'Confirmation email is not valid!',status: 401})
+                })
+            }catch(e){
+                console.log(e)
+                return res.status(401).send({err:'Confirmation email is not valid!',status: 401})
+            }
         },
         verifyLogin: (req, res, next) => {
             const token = req.headers.authorization || '';
@@ -70,15 +77,13 @@ module.exports = {
                     .then(async(createdUser) => {
                         console.log(faceBook)
                         if(faceBook){
-                            const a = await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
+                             await models.User.findOneAndUpdate({_id: createdUser._id}, {isConfirmed: true})
                         }else{
-                            const a = await utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! http://localhost:9999/api/user/confirm/${createdUser.uuid}/${createdUser._id}`})
-                            console.log(a)
+                             await utils.sendMsg({email: createdUser.email, subject: 'Please confirm your email!',text: `Confirmation email', 'Please click on this link to confirm your account! https://localhost:3000/Confirm/${createdUser.uuid}/${createdUser._id}`})
                         }
                         res.header("Authorization", 'notConfirmed').send(createdUser)
                     })
                     .catch(err=>{
-                        console.log(err)
                         res.send(err)
                     })    
                 }                               
@@ -88,16 +93,20 @@ module.exports = {
         },
 
         login: (req, res, next) => {
-            const { email, password } = req.body;
+            const { email, password, faceBook } = req.body;
+            if((!email || !password) && !faceBook){
+                res.status(400).send({err: 'Missing data',status: 400})
+                return
+            }
             models.User.findOne({ email })
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
                     if (!match) {
-                        res.status(401).send({err:'Invalid password'});
+                        res.status(401).send({err:'Invalid password', status: 401});
                         return;
                     }
                     if(!user.isConfirmed){
-                        res.send('Not confirmed');
+                        res.status(401).send({err:'Not confirmed', status:401});
                         return;
                     }                  
                     const token = utils.jwt.createToken({ id: user._id });

@@ -8,6 +8,7 @@ import UserContext from '../../Context'
 import authenticate from '../../utils/authenticate'
 import DangerTextBox from '../../components/dangerTextBox'
 import WarninTextBox from '../../components/warningTextBox'
+import DangerText from '../../components/dangerText'
 import styles from './index.module.css'
 
 class LoginPage extends Component {
@@ -17,7 +18,8 @@ class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
-            invalidPassword: false
+            invalidPassword: false,
+            required: false
         }
     }
 
@@ -40,15 +42,20 @@ class LoginPage extends Component {
         } = this.state
         await authenticate('http://localhost:9999/api/user/login', {
                 email,
-                password
+                password,
+                faceBook: false
             }, (user) => {
                 this.context.logIn(user)
                 this.props.history.push('/')
             }, (e) => {
+                console.log(e)
                if(e.err==="Invalid password"){
                    this.setState({
                        invalidPassword:true
                    })
+               }
+               if(e.status === 400){
+                    this.setState({required: true})
                }
             }
         )
@@ -57,10 +64,10 @@ class LoginPage extends Component {
     
 
     render() {
-    const {email, password, invalidPassword} = this.state
+    const {email, password, invalidPassword, required} = this.state
     const { data } = this.props.location
         return(
-           <PageWrapper>
+           <PageWrapper title='Log in - DForum'>
                 <div className={styles.center}>
                 {invalidPassword && (<DangerTextBox text='Invalid password!' />)}
                 {data && (<WarninTextBox text='Please confirm your email!'/>)}
@@ -76,6 +83,7 @@ class LoginPage extends Component {
                                         label="Email"
                                         id="email"
                                     />
+                                    {required && <DangerText text = "Email is required!" />}
                                     <Input
                                         value={password}
                                         onChange={(e) => this.onChange(e, 'password')}
@@ -83,6 +91,7 @@ class LoginPage extends Component {
                                         id="password"
                                         type="password"
                                     />
+                                    {required && <DangerText text = "Password is required!" />}
                                     <SubmitBtn id='button' name='Log In' />
                                 </form>
                             </section>      

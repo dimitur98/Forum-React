@@ -26,6 +26,7 @@ const ServicesToLogIn = () => {
                 authenticate('http://localhost:9999/api/user/login', {
                     email: response.email,
                     password: response.userID,
+                    faceBook: true
                 }, (user) => {
                     context.logIn(user)
                     history.push('/')

@@ -75,7 +75,7 @@ class CreateCategoryPage extends Component {
     render(){
         const { name,imageUrl } = this.state
         return(
-           <PageWrapper>
+           <PageWrapper title='Create category - DForum'>
                     <div className = {styles.center}>
                         <form onSubmit = {this.handleSubmit}>
                             <Input       

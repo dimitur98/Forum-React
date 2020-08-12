@@ -3,7 +3,7 @@ import PageWrapper from '../../components/pageWrapper'
 
 const PrivacyPage = () => {
     return(
-        <PageWrapper>
+        <PageWrapper title='Privacy - DForum'>
             <div className='container'>
                 <h1>Privacy Policy for DForum</h1>
 

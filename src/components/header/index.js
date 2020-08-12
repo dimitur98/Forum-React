@@ -8,10 +8,6 @@ import UserContext from '../../Context'
 
 
 class Header extends Component{
-    
-    constructor(props){
-        super(props)
-    }
     static contextType = UserContext
 
     logOut = () => {

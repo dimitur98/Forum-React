@@ -72,7 +72,7 @@ class CreatePostPage extends Component{
     render(){
         const {name} = this.state
         return(
-            <PageWrapper>
+            <PageWrapper title='Create post - DForum'>
                     <div className={styles.container}>
                         <form onSubmit = {this.handleSubmit}>
                             

@@ -4,9 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import getCookie from '../../utils/cookie'
 
 class DeleteBtn extends Component{
-    constructor(props){
-        super(props)
-    }
     delete=()=>{
         const {id, type} = this.props
          fetch(`http://localhost:9999/api/${type}/delete${type}/${id}`, {
