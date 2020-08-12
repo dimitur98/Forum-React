@@ -3,6 +3,7 @@ import TinyMCEInput from '../tinyMCEInput'
 import UserContext from '../../Context'
 import { withRouter } from 'react-router-dom';
 import getCookie from '../../utils/cookie'
+import DangerText from '../../components/dangerText'
 
 class TinyMCEInputForm extends Component{
     constructor(props){
@@ -10,7 +11,8 @@ class TinyMCEInputForm extends Component{
 
         this.state = {
             content: "",
-            update: false
+            update: false,
+            requiredContent: false
         }
     }
 
@@ -25,34 +27,39 @@ class TinyMCEInputForm extends Component{
         } = this.state
         const {postId, parentId} = this.props
         const {user} = this.context
-          fetch('http://localhost:9999/api/comment/createComment', {
-             method: 'POST',
-             body: JSON.stringify({
-               author: user.id,
-               post: postId,
-               content,
-               parentComment: parentId
-             }),
-             headers: {
-                 'Content-Type': 'application/json',
-                 'Authorization': getCookie('x-auth-token')
-             }
-         }).then(() => {
-            this.props.history.push(`/`);
-            this.props.history.push(`/PostComments/${postId}`);
-            
-         })
+        content ? this.setState({requiredContent:false}) : this.setState({requiredContent:true})
+        if(content){
+            fetch('http://localhost:9999/api/comment/createComment', {
+                method: 'POST',
+                body: JSON.stringify({
+                author: user.id,
+                post: postId,
+                content,
+                parentComment: parentId
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getCookie('x-auth-token')
+                }
+            }).then(() => {
+                this.props.history.push(`/`);
+                this.props.history.push(`/PostComments/${postId}`);
+                
+            })
+        }
     }
     getContent = (content) => {
         this.setState({content})
     }
 
     render(){
+        const {requiredContent} = this.state
         return(
             <>
                 <div>
                     <form onSubmit = {this.handleSubmit}>
                         <TinyMCEInput getContent = {this.getContent}/>
+                        {requiredContent && <DangerText text='Content is required!'/>}
                         <div>
                             <input type="submit" class="btn btn-primary" value="Add comment" />
                         </div>

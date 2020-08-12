@@ -89,7 +89,7 @@ class PostCommentsPage extends Component{
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card mb-4">
-                                        <PostHeader  email = {author.email} createdOn = {new Date(post.createdOn).toLocaleString()} imageUrl = {author.imageUrl} >
+                                        <PostHeader  email = {author.email} createdOn = {post.createdOn} imageUrl = {author.imageUrl} >
                                             <Votes postId = {postId}/>
                                         </PostHeader>
                                         <div class="card-body" >

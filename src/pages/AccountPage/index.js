@@ -31,13 +31,8 @@ class AccountPage extends Component{
             return(
                 <Post 
                     key = {post._id}
-                    id = {post._id}
-                    content = {post.content.substring(0,500)+'...'}
-                    name = {post.name} 
-                    authorEmail = {post.author.email} 
-                    createdOn = {post.createdOn} 
+                    {...post}
                     commentsCount = {0} 
-                    authorId = {post.author._id}
                 />
             )
         })

@@ -5,6 +5,7 @@ import TinyMCEInput from '../../components/tinyMCEInput'
 import SubmitBtn from '../../components/submitBtn'
 import Input from '../../components/input'
 import getCookie from '../../utils/cookie'
+import DangerText from '../../components/dangerText'
 import styles from './index.module.css'
 
 class CreatePostPage extends Component{
@@ -14,7 +15,9 @@ class CreatePostPage extends Component{
         this.state = {
             name: "",
             content: "",
-            cateoryName: ""
+            categoryName: "",
+            requiredName: false,
+            requiredContent: false
         }
     }
 
@@ -26,9 +29,8 @@ class CreatePostPage extends Component{
         console.log('props',this.props)
         const promise = await fetch(`http://localhost:9999/api/category/getCategoryById/${categoryId}`)
         const category = await promise.json()
-        console.log('category',category)
         this.setState({
-            cateoryName: category.name
+            categoryName: category.name
         })
     }
 
@@ -37,26 +39,31 @@ class CreatePostPage extends Component{
 
         const{
             name,
-            content
+            content,
+            requiredContent,
+            requiredName
         } = this.state
 
         const {categoryId, authorId} = this.props.match.params
-
-        await fetch('http://localhost:9999/api/post/createPost', {
-            method: 'POST',
-            body: JSON.stringify({
-              name,
-              author: authorId,
-              categoryId,             
-              content
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': getCookie('x-auth-token')
-            }
-        }).then((c) => {
-            this.props.history.push(`/postsByCategory/${categoryId}/${name}`)
-        })
+        name ? this.setState({requiredName: false}) : this.setState({requiredName: true})
+        content ? this.setState({requiredContent: false}) : this.setState({requiredContent: true})
+        if(name && content){
+            await fetch('http://localhost:9999/api/post/createPost', {
+                method: 'POST',
+                body: JSON.stringify({
+                name,
+                author: authorId,
+                categoryId,             
+                content
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getCookie('x-auth-token')
+                }
+            }).then((c) => {
+                this.props.history.push(`/postsByCategory/${categoryId}/${name}`)
+            })
+        }
     }
 
     onChange = (event, type) => {
@@ -70,7 +77,7 @@ class CreatePostPage extends Component{
         this.getCategoryById()
     }
     render(){
-        const {name} = this.state
+        const {name,categoryName,requiredName, requiredContent} = this.state
         return(
             <PageWrapper title='Create post - DForum'>
                     <div className={styles.container}>
@@ -82,9 +89,11 @@ class CreatePostPage extends Component{
                                 label="Name"
                                 id="name"
                             />
+                            {requiredName && <DangerText text='Name is required!'/>}
                             <TinyMCEInput getContent = {this.getContent}/>
+                            {requiredContent && <DangerText text='Content is required!'/>}
                             <br />
-                            <span>Category name: {this.state.cateoryName}</span>
+                            <span>Category name: {categoryName}</span>
                             <br /> <br />
                             <SubmitBtn name = 'Create' />
                         </form>

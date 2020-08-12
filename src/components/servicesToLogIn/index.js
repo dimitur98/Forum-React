@@ -10,7 +10,6 @@ const ServicesToLogIn = () => {
     const history = useHistory()
     const context = useContext(UserContext)
     const responseFacebook = async (response) => {       
-        console.log(response.email)
           fetch('http://localhost:9999/api/user/register', {
               method: 'POST',
               body: JSON.stringify({
@@ -34,10 +33,11 @@ const ServicesToLogIn = () => {
                     console.log(e)
                 }
             )
-             
           })
       }
-      
+      const failFaceBook = (e) =>{
+          console.log(e)
+      }
 
     return(
         <div className={styles.center}>
@@ -47,7 +47,8 @@ const ServicesToLogIn = () => {
                 <FacebookLogin
                     appId= {process.env.REACT_APP_APPID_FACEBOOK}
                     fields="email,picture"
-                    callback={responseFacebook} />,        
+                    callback={responseFacebook}
+                    onFailure = {failFaceBook} />      
             </section>
             
         </div>

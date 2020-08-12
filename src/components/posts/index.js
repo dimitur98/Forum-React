@@ -48,7 +48,7 @@ const Post = (props) => {
                     <FontAwesomeIcon icon={faUserEdit} /> {author.email}
                 </li>
                 <li className="list-inline-item">
-                    <FontAwesomeIcon icon={faCalendarAlt} /> {createdOn}
+                    <FontAwesomeIcon icon={faCalendarAlt} /> {new Date(createdOn).toLocaleString()}
                 </li>
                 <li className="list-inline-item">
                     <FontAwesomeIcon icon={faCommentDots} />  {commentsCount}

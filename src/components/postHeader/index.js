@@ -9,7 +9,7 @@ const PostHeader = (props) => {
                 <div class="media-body ml-3">
                     {props.email}
                         <div class="text-muted small">
-                            {props.createdOn}
+                            {new Date(props.createdOn).toLocaleString()}
                         </div>
                 </div>
                 {props.children}

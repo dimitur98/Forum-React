@@ -7,6 +7,7 @@ import { faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import getCookie from '../../utils/cookie'
 import UserContext from '../../Context'
+import DangerText from '../../components/dangerText'
 import styles from './index.module.css'
 
 
@@ -16,7 +17,9 @@ class CreateCategoryPage extends Component {
 
         this.state = {
             imageUrl: "",
-            name: ""
+            name: "",
+            requiredName: false,
+            requiredImageUrl: false
         }
     }
 
@@ -39,23 +42,29 @@ class CreateCategoryPage extends Component {
 
         const{
             name,
-            imageUrl
+            imageUrl,
+            requiredName,
+            requiredImageUrl
         } = this.state
         const {user} = this.context
-         fetch('http://localhost:9999/api/category/createCategory', {
-            method: 'POST',
-            body: JSON.stringify({
-              name,
-              author: user.id,            
-              imageUrl
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': getCookie('x-auth-token')
-            }
-        }).then((user) => {
-            this.props.history.push('/')
-        })
+        name ? this.setState({requiredName: false}) : this.setState({requiredName: true})
+        imageUrl ? this.setState({requiredImageUrl: false}) : this.setState({requiredImageUrl: true})
+        if(name && imageUrl){
+            fetch('http://localhost:9999/api/category/createCategory', {
+                method: 'POST',
+                body: JSON.stringify({
+                name,
+                author: user.id,            
+                imageUrl
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': getCookie('x-auth-token')
+                }
+            }).then((user) => {
+                this.props.history.push('/')
+            })
+        }
     }
 
     openWidget= () => {
@@ -73,7 +82,7 @@ class CreateCategoryPage extends Component {
       }
 
     render(){
-        const { name,imageUrl } = this.state
+        const { name,imageUrl,requiredName, requiredImageUrl } = this.state
         return(
            <PageWrapper title='Create category - DForum'>
                     <div className = {styles.center}>
@@ -84,9 +93,13 @@ class CreateCategoryPage extends Component {
                                 label="Name"
                                 id="name"
                             />
+                            {requiredName && <DangerText text='Name is required!' />}
+                            <br/>
                             <button className="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
-                            {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}  
-                            {imageUrl && <SubmitBtn name = 'Create' />}
+                            {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}
+                            <br/> 
+                            {requiredImageUrl && <DangerText text='Image is required!' />}
+                            <SubmitBtn name = 'Create' />
                         </form>
                     </div>
             </PageWrapper>
