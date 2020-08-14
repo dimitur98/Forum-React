@@ -57,8 +57,8 @@ class PostsByCategoryPage extends Component{
                     <div className='container'>
                         <main role="main" className="pb-3">
                             <h1 className="display-3">Title: {categoryName} 
-                            {user && <Link to = {`/CreatePost/${categoryId}/${user.id}`} class="btn btn-primary" style={{float: "right", marginTop:50}}>
-                                <i class="fa fa-plus"></i>&nbsp; Add Post
+                            {user && <Link to = {`/CreatePost/${categoryId}/${user.id}`} className="btn btn-primary" style={{float: "right", marginTop:50}}>
+                                <i className="fa fa-plus"></i>&nbsp; Add Post
                             </Link>}</h1>                       
                                 {this.renderPosts()}
                         </main>

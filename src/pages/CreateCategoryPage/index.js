@@ -8,7 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import getCookie from '../../utils/cookie'
 import UserContext from '../../Context'
 import DangerText from '../../components/dangerText'
+import imgUploadWidget from '../../components/imgUploadWidget'
 import styles from './index.module.css'
+import ImgUplaodWidget from '../../components/imgUploadWidget'
 
 
 class CreateCategoryPage extends Component {
@@ -27,6 +29,7 @@ class CreateCategoryPage extends Component {
 
 
     setImgUrl = (imageUrl) => {
+        console.log(imageUrl)
         this.setState({imageUrl})
     }
 
@@ -42,9 +45,7 @@ class CreateCategoryPage extends Component {
 
         const{
             name,
-            imageUrl,
-            requiredName,
-            requiredImageUrl
+            imageUrl
         } = this.state
         const {user} = this.context
         name ? this.setState({requiredName: false}) : this.setState({requiredName: true})
@@ -61,25 +62,15 @@ class CreateCategoryPage extends Component {
                     'Content-Type': 'application/json',
                     'Authorization': getCookie('x-auth-token')
                 }
-            }).then((user) => {
+            }).then((category) => {
                 this.props.history.push('/')
             })
         }
     }
 
-    openWidget= () => {
-        const widget = window.cloudinary.createUploadWidget({
-            cloudName: "dimitur98",
-            uploadPreset: "ReactForum"
-        }, (err,res) => {
-            if(res.event === 'success'){
-                this.setState({
-                    imageUrl: res.info.url
-                })
-            }
-        })
-        widget.open()
-      }
+    setImgUrl = (imageUrl)=>{
+        this.setState({imageUrl})
+    }
 
     render(){
         const { name,imageUrl,requiredName, requiredImageUrl } = this.state
@@ -95,7 +86,7 @@ class CreateCategoryPage extends Component {
                             />
                             {requiredName && <DangerText text='Name is required!' />}
                             <br/>
-                            <button className="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
+                            <ImgUplaodWidget setImgUrl = {(imageUrl) => this.setImgUrl(imageUrl)} />
                             {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />}
                             <br/> 
                             {requiredImageUrl && <DangerText text='Image is required!' />}

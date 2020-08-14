@@ -3,7 +3,7 @@ import {
     Link,
     withRouter
 } from 'react-router-dom'
-
+import styles from './index.module.css'
 import UserContext from '../../Context'
 
 
@@ -22,31 +22,31 @@ class Header extends Component{
         } = this.context
         return(
             <header>
-            <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-                <div class="container">
-                    <a class="navbar-brand" >DForum</a>
+            <nav className="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div className="container">
+                    <a className="navbar-brand" ><img className={styles.logo} src={require('../../images/logoDForum.jpg')} /></a>
             
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div className="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <Link to='/' class="nav-link text-dark" >Home</Link>
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link to='/' className="nav-link text-dark" >Home</Link>
                             </li>
                             {!loggedIn ? 
                                 (<>
-                                    <li class="nav-item">
+                                    <li className="nav-item">
                                         <Link to='/Login' class="nav-link text-dark" >Login</Link>
                                     </li>
-                                    <li class="nav-item">
+                                    <li className="nav-item">
                                         <Link to='/Register' class="nav-link text-dark" >Register</Link>
                                     </li>
                                 </>):
                                 (<>
-                                    <li class="nav-item">
-                                        <Link to='/Account' class="nav-link text-dark">Hi {user.email}</Link>
+                                    <li className="nav-item">
+                                        <Link to='/Account' className="nav-link text-dark">Hi {user.email}</Link>
                                     </li>
-                                    <li class="nav-item">
-                                        <Link onClick={this.logOut} class="nav-link text-dark">Logout</Link>
+                                    <li className="nav-item">
+                                        <Link onClick={this.logOut} className="nav-link text-dark">Logout</Link>
                                     </li>
                                 </>)}
                             

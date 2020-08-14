@@ -77,7 +77,7 @@ class App extends Component{
             return(<div>Loading...</div>)
         }
         return(
-            <UserContext.Provider value={{
+            <UserContext.Provider  value={{
                 loggedIn,
                 user,
                 logIn: this.logIn,

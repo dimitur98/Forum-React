@@ -21,7 +21,7 @@ class AddAnswer extends Component {
         return(
             <>
                 <div className = {styles.textMuted}>                                      
-                    <div class={styles.btn}> <button type="button" class="btn btn-secondary" onClick={this.clickMe}><i class="fa fa-plus"></i>&nbsp; Answer</button> </div>                                       
+                    <div className={styles.btn}> <button type="button" className="btn btn-secondary" onClick={this.clickMe}><i className="fa fa-plus"></i>&nbsp; Answer</button> </div>                                       
                 </div>
                 
             </>       

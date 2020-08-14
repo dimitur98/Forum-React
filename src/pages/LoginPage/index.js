@@ -18,8 +18,9 @@ class LoginPage extends Component {
         this.state = {
             email: '',
             password: '',
-            invalidPassword: false,
-            required: false
+            requiredEmail: false,
+            requiredPassword: false,
+            invalidUser: false
         }
     }
 
@@ -40,50 +41,52 @@ class LoginPage extends Component {
             email,
             password
         } = this.state
-        await authenticate('http://localhost:9999/api/user/login', {
-                email,
-                password,
-                faceBook: false
-            }, (user) => {
-                this.context.logIn(user)
-                this.props.history.push('/')
-            }, (e) => {
-                console.log(e)
-               if(e.err==="Invalid password"){
-                   this.setState({
-                       invalidPassword:true
-                   })
-               }
-               if(e.status === 400){
-                    this.setState({required: true})
-               }
-            }
-        )
+        email ? this.setState({requiredEmail: false}) : this.setState({requiredEmail: true})
+        password ? this.setState({requiredPassword: false}) : this.setState({requiredPassword: true})
+
+        if(email && password){
+            await authenticate('http://localhost:9999/api/user/login', {
+                    email,
+                    password,
+                    faceBook: false
+                }, (user) => {
+                    this.context.logIn(user)
+                    this.props.history.push('/')
+                }, (e) => {
+                    console.log(e)
+                if(e.err==="Invalid user"){
+                    this.setState({
+                            invalidUser:true
+                    })
+                }
+                }
+            )
+        }
         
     }
     
 
     render() {
-    const {email, password, invalidPassword, required} = this.state
+    const {email, password, invalidUser, requiredEmail, requiredPassword} = this.state
     const { data } = this.props.location
         return(
            <PageWrapper title='Log in - DForum'>
                 <div className={styles.center}>
-                {invalidPassword && (<DangerTextBox text='Invalid password!' />)}
+                {invalidUser && (<DangerTextBox text='Invalid email or password!' />)}
                 {data && (<WarninTextBox text='Please confirm your email!'/>)}
                     <h1>Login</h1>
                             <section>
                                 <form onSubmit={this.handleSubmit}>
                                     <h4>Use a local account to log in.</h4>
                                     <hr />
-                                    <div asp-validation-summary="All" class="text-danger"></div>
+                                    <div asp-validation-summary="All" className="text-danger"></div>
                                     <Input
                                         value={email}
                                         onChange={(e) => this.onChange(e, 'email')}
                                         label="Email"
                                         id="email"
                                     />
-                                    {required && <DangerText text = "Email is required!" />}
+                                    {requiredEmail && <DangerText text = "Email is required!" />}
                                     <Input
                                         value={password}
                                         onChange={(e) => this.onChange(e, 'password')}
@@ -91,7 +94,7 @@ class LoginPage extends Component {
                                         id="password"
                                         type="password"
                                     />
-                                    {required && <DangerText text = "Password is required!" />}
+                                    {requiredPassword && <DangerText text = "Password is required!" />}
                                     <SubmitBtn id='button' name='Log In' />
                                 </form>
                             </section>      

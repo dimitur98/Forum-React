@@ -19,7 +19,7 @@ class DeleteBtn extends Component{
     render(){
         return(
             <>
-                <div class=" pt-3"> <a type="button"  onClick={this.delete}><FontAwesomeIcon icon={faTrash} /></a> </div>                                       
+                <div className=" pt-3"> <a type="button"  onClick={this.delete}><FontAwesomeIcon icon={faTrash} /></a> </div>                                       
             </>
         )
     }

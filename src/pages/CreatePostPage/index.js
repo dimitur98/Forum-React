@@ -26,7 +26,6 @@ class CreatePostPage extends Component{
     }
     getCategoryById = async() => {
         const {categoryId} = this.props.match.params
-        console.log('props',this.props)
         const promise = await fetch(`http://localhost:9999/api/category/getCategoryById/${categoryId}`)
         const category = await promise.json()
         this.setState({
@@ -39,9 +38,7 @@ class CreatePostPage extends Component{
 
         const{
             name,
-            content,
-            requiredContent,
-            requiredName
+            content
         } = this.state
 
         const {categoryId, authorId} = this.props.match.params

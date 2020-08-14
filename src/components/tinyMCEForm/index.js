@@ -42,9 +42,7 @@ class TinyMCEInputForm extends Component{
                     'Authorization': getCookie('x-auth-token')
                 }
             }).then(() => {
-                this.props.history.push(`/`);
-                this.props.history.push(`/PostComments/${postId}`);
-                
+                this.props.refresh()              
             })
         }
     }
@@ -61,7 +59,7 @@ class TinyMCEInputForm extends Component{
                         <TinyMCEInput getContent = {this.getContent}/>
                         {requiredContent && <DangerText text='Content is required!'/>}
                         <div>
-                            <input type="submit" class="btn btn-primary" value="Add comment" />
+                            <input type="submit" className="btn btn-primary" value="Add comment" />
                         </div>
                     </form>
                 </div>

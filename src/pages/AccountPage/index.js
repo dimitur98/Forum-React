@@ -10,7 +10,8 @@ class AccountPage extends Component{
     constructor(props){
         super(props)
         this.state={
-            posts: []
+            posts: [],
+            noPosts: false
         }
     }
 
@@ -20,13 +21,19 @@ class AccountPage extends Component{
         const{user} = this.context
         const promise = await fetch(`http://localhost:9999/api/post/getPostsByUserId/${user.id}`)
         const posts = await promise.json()
-        this.setState({
-            posts
-        })
+        if(posts.length !== 0){
+            this.setState({
+                posts
+            })
+        }else{
+            this.setState({noPosts: true})
+        }
+        
     }
 
     renderPosts(){
         const { posts } = this.state
+        
         return posts.map((post) => {
             return(
                 <Post 
@@ -35,8 +42,7 @@ class AccountPage extends Component{
                     commentsCount = {0} 
                 />
             )
-        })
-        
+        })       
     }
 
     componentDidMount(){
@@ -44,12 +50,14 @@ class AccountPage extends Component{
     }
 
     render(){
+        const {noPosts} = this.state
         return(
             <PageWrapper title='My account - DForum'>
-                <div class='container'>
+                <div className='container'>
                 <Aside />
                     <div className={styles['inner-container']}>
-                        {this.renderPosts()}
+                        {noPosts ? (<h1>You haven't got posts.</h1>) : this.renderPosts()}
+                        
                     </div>
                 </div>
             </PageWrapper>

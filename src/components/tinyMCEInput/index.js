@@ -21,7 +21,6 @@ class TinyMCEInput extends Component{
     }
     render(){
         const apiKey  = process.env.REACT_APP_TINYMCE_APYKEY
-        console.log(process.env.REACT_APP_TINYMCE_APYKEY)
         return(        
             <div data-test-id={'tinyMceInput'}>   
                 <Editor 

@@ -83,12 +83,12 @@ class PostCommentsPage extends Component{
         const {loggedIn} = this.context
         return(
             <PageWrapper title={`${post.name} comments - DForum`}>
-                    <div class='container'>
+                    <div className='container'>
                         <h1>{post.name}</h1>
-                        <div class="container-fluid mt-100">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card mb-4">
+                        <div className="container-fluid mt-100">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <div className="card mb-4">
                                         <PostHeader  email = {author.email} createdOn = {post.createdOn} imageUrl = {author.imageUrl} >
                                             <Votes postId = {postId}/>
                                         </PostHeader>
@@ -96,15 +96,15 @@ class PostCommentsPage extends Component{
                                             <article>
                                                 <RenderedHtmlText content = { post.content } />
                                             </article>                                           
-                                               {loggedIn && <div class="px-4 pt-3"> <button data-test-id={'commentBtn'} class="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>}
-                                                <div class="clearfix"></div>                                         
+                                               {loggedIn && <div class="px-4 pt-3"> <button data-test-id={'commentBtn'} className="btn btn-primary float-right" onClick={() => this.showCommentInput(postId)}><i class="fa fa-plus"></i>&nbsp; Comment</button> </div>}
+                                                <div className="clearfix"></div>                                         
                                                 {this.renderComments(this.props.match.params.postId)}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>                   
-                        { showHideCommentFrom && <TinyMCEForm postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
+                        { showHideCommentFrom && <TinyMCEForm refresh = {this.refresh} postId = {postId} parentId = {this.state.parentId}  showCommentInput = {this.showCommentInput}/> }
                     </div>
              </PageWrapper>
         )

@@ -9,13 +9,7 @@ const Comment = (props) => {
     const context = useContext(UserContext)
     const [creator, setCreator] = useState(false)
     const {author, createdOn, content, _id} = props
-    // email = {comment.author.email}
-                        // createdOn = {new Date(comment.createdOn).toLocaleString()}
-                        // imageUrl = {comment.author.imageUrl}
-                        // content = {comment.content}
-                        // id = {comment._id}
-                        // authorId = {comment.author._id}
-   const isAuthor = () => {
+    const isAuthor = () => {
         const {user} = context
         const authorId = author._id
         if(user){

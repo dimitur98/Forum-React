@@ -29,7 +29,6 @@ class AddImage extends Component{
           body: formData,
         };
         
-        // replace cloudname with your Cloudinary cloud_name
          const promise = await fetch('https://api.Cloudinary.com/v1_1/dimitur98/image/upload', options)
          const res = await promise.json()
           fetch(`http://localhost:9999/api/user/imgChange/${user.id}`, {

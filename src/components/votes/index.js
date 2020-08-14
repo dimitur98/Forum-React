@@ -58,16 +58,16 @@ class Votes extends Component{
         const {loggedIn} = this.context
 
         return(
-            <div class="text-muted small ml-3">
+            <div className="text-muted small ml-3">
                     {loggedIn &&<div>
                         <a data-test-id={'upVote'} href="#" onClick={()=>this.makeVote('+')}>
-                            <i class="fa fa-thumbs-up"></i>
+                            <i className="fa fa-thumbs-up"></i>
                         </a>
                     </div>}
-                    <div  id="votesCount">Votes:{votes}</div>
+                    <div id="votesCount">Votes:{votes}</div>
                     {loggedIn && <div>
                         <a data-test-id={'downVote'} href="#" onClick={()=>this.makeVote('-')}>
-                            <i class="fa fa-thumbs-down"></i>
+                            <i className="fa fa-thumbs-down"></i>
                         </a>
                     </div>}
             </div>

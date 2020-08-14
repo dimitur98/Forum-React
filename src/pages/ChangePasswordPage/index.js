@@ -66,31 +66,31 @@ class ChangePasswordPage extends Component{
         const {oldPassword, newPassword, reNewPassword, match} = this.state
         return(
             <PageWrapper title='Change your password - DForum'>
-                <div class="container">
+                <div className="container">
                     <Aside/>
                     <form onSubmit={this.handleSubmit}>
-                        <div class="form-group row">
-                            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-                            <div class="col-sm-10">
-                                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value={user.email}/>
+                        <div className="form-group row">
+                            <label for="staticEmail" className="col-sm-2 col-form-label">Email</label>
+                            <div className="col-sm-10">
+                                <input type="text" readonly className="form-control-plaintext" id="staticEmail" value={user.email}/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Old Password</label>
-                            <div class="col-sm-10">
-                                <input type="password" onChange={(e) => this.onChange(e, 'oldPassword')} value={oldPassword} class="form-control" id="inputPassword" placeholder="Old Password"/>
+                        <div className="form-group row">
+                            <label for="inputPassword" className="col-sm-2 col-form-label">Old Password</label>
+                            <div className="col-sm-10">
+                                <input type="password" onChange={(e) => this.onChange(e, 'oldPassword')} value={oldPassword} className="form-control" id="inputPassword" placeholder="Old Password"/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">New Password</label>
-                            <div class="col-sm-10">
-                                <input type="password" onBlur={this.checkPasswords}  onChange={(e) => this.onChange(e, 'newPassword')} value={newPassword} class="form-control" id="inputPassword" placeholder="New Password"/>
+                        <div className="form-group row">
+                            <label for="inputPassword" className="col-sm-2 col-form-label">New Password</label>
+                            <div className="col-sm-10">
+                                <input type="password" onBlur={this.checkPasswords}  onChange={(e) => this.onChange(e, 'newPassword')} value={newPassword} className="form-control" id="inputPassword" placeholder="New Password"/>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="inputPassword" class="col-sm-2 col-form-label">Reapeat New Password</label>
-                            <div class="col-sm-10">
-                                <input type="password" onBlur={this.checkPasswords}  onChange={(e) => this.onChange(e, 'reNewPassword')} value={reNewPassword} class="form-control" id="inputPassword" placeholder="Reapeat New Password"/>
+                        <div className="form-group row">
+                            <label for="inputPassword" className="col-sm-2 col-form-label">Reapeat New Password</label>
+                            <div className="col-sm-10">
+                                <input type="password" onBlur={this.checkPasswords}  onChange={(e) => this.onChange(e, 'reNewPassword')} value={reNewPassword} className="form-control" id="inputPassword" placeholder="Reapeat New Password"/>
                                 {!match && <WarningText text="Passwords don't match"/>}
                             </div>
                         </div>

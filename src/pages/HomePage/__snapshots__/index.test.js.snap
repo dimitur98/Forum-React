@@ -2,7 +2,7 @@
 
 exports[`Home page should not show button 'Add category' 1`] = `
 <pageWrapper
-  isAdmin={[Function]}
+  title="Home - DForum"
 >
   <div
     className="container"
@@ -31,7 +31,7 @@ exports[`Home page should not show button 'Add category' 1`] = `
 
 exports[`Home page should show button 'Add category' only for admins 1`] = `
 <pageWrapper
-  isAdmin={[Function]}
+  title="Home - DForum"
 >
   <div
     className="container"
@@ -49,7 +49,7 @@ exports[`Home page should show button 'Add category' only for admins 1`] = `
           DForum
         </h1>
         <a
-          class="btn btn-primary btn-lg"
+          className="btn btn-primary btn-lg"
           href="/CreateCategory"
           onClick={[Function]}
         >

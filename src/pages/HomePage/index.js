@@ -72,7 +72,7 @@ class HomePage extends Component{
                   <div className="text-center">
                       <h1 className="display-3">DForum</h1>
 
-                      {(loggedIn && admin) && <Link to='/CreateCategory' class="btn btn-primary btn-lg">Add new category</Link>}
+                      {(loggedIn && admin) && <Link to='/CreateCategory' className="btn btn-primary btn-lg">Add new category</Link>}
                   </div>
                   <hr />
                   <div className="row">

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PageWrapper from '../../components/pageWrapper'
 import Aside from '../../components/aside'
 import DeleteImage from '../../components/deleteImage'
-import AddImage from '../../components/addImage'
+import UploadImg from '../../components/uploadImg'
 import UserContext from '../../Context'
 
 
@@ -44,11 +44,11 @@ class ChangeAvatarPage extends Component{
         const {imageUrl, defaultAvatar} = this.state
         return(
             <PageWrapper title='Change your avatar - DForum'>
-                <div class="container">
+                <div className="container">
                     <Aside />
-                    <div class = 'center'>
+                    <div className = 'center'>
                         {defaultAvatar ? 
-                            <AddImage checkAvatar = {this.checkAvatar}/> :
+                            <UploadImg checkAvatar = {this.checkAvatar}/> :
                             <DeleteImage imageUrl = {imageUrl} checkAvatar = {this.checkAvatar}/>
                         }
                     </div>

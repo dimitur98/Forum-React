@@ -102,7 +102,7 @@ module.exports = {
                 .then((user) => Promise.all([user, user.matchPassword(password)]))
                 .then(([user, match]) => {
                     if (!match) {
-                        res.status(401).send({err:'Invalid password', status: 401});
+                        res.status(401).send({err:'Invalid user', status: 401});
                         return;
                     }
                     if(!user.isConfirmed){
@@ -112,7 +112,9 @@ module.exports = {
                     const token = utils.jwt.createToken({ id: user._id });
                     res.header("Authorization", token).send(user);
                 })
-                .catch(next);
+                .catch(e => {
+                    res.status(401).send({err: 'Invalid user',status: 401})
+                });
         },
         
         logout: (req, res, next) => {

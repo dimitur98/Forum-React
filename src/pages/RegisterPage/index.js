@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import DangerTextBox from '../../components/dangerTextBox'
 import DangerText from '../../components/dangerText'
 import authenticate from '../../utils/authenticate'
+import ImgUploadWidget from '../../components/imgUploadWidget'
 import styles from './index.module.css'
 class RegisterPage extends Component{
     constructor(props) {
@@ -67,12 +68,12 @@ class RegisterPage extends Component{
         )
         }       
       }
-      
+      setImgUrl = (imageUrl)=>{
+          this.setState({imageUrl})
+      }
 
       isPasswordsMatch = () => {
           const {password, rePassword} = this.state
-          console.log('1',password)
-          console.log('2',rePassword)
           if(password === rePassword){
               this.setState({passwordsMatch: true})
           }else{
@@ -80,19 +81,7 @@ class RegisterPage extends Component{
           }
       }
 
-      openWidget= () => {
-        const widget = window.cloudinary.createUploadWidget({
-            cloudName: "dimitur98",
-            uploadPreset: "ReactForum"
-        }, (err,res) => {
-            if(res.event === 'success'){
-                this.setState({
-                    imageUrl: res.info.url
-                })
-            }
-        })
-        widget.open()
-      }
+      
 
     render(){
         const {
@@ -141,7 +130,7 @@ class RegisterPage extends Component{
                                 />
                                 {!passwordsMatch && <DangerText text="Passwords don't match!"/>}
                                 <br/>
-                                <button class="btn btn-primary" type="button" onClick={this.openWidget}>Add photo</button>
+                                <ImgUploadWidget setImgUrl = {(imageUrl) => this.setImgUrl(imageUrl)}/>
                                 {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />} 
                                 <br/>
                                 {requiredImageUrl && <DangerText text='Image is required!'/>} 
