@@ -1,8 +1,6 @@
 import React from 'react'
 import Enzyme from 'enzyme';
-import renderer from 'react-test-renderer'
 import PostCommentsPage from '.'
-import TestingEnvironment from '../../test-utils/router'
 import {shallow} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
  

@@ -47,3 +47,11 @@ npx nodemon
 ```bash
 npm start
 ```
+## Unit tests and snapshots
+```bash
+npm test
+```
+## End to End test with cypress
+```bash
+npx cypress open
+```

@@ -1,11 +1,11 @@
 import React from 'react'
 
-const WarningTextBox = ({text}) => {
+const DangerTextBox = ({text}) => {
     return(
-        <div className="alert alert-danger" role="alert">
+        <div id='dangerTextBox'  className="alert alert-danger" role="alert">
             {text}
         </div>
     )
 }
 
-export default WarningTextBox
+export default DangerTextBox

@@ -20,7 +20,9 @@ class LoginPage extends Component {
             password: '',
             requiredEmail: false,
             requiredPassword: false,
-            invalidUser: false
+            invalidUser: false,
+            user: {},
+            confirmed: false
         }
     }
 
@@ -51,6 +53,7 @@ class LoginPage extends Component {
                     faceBook: false
                 }, (user) => {
                     this.context.logIn(user)
+                    this.setState({user})
                     this.props.history.push('/')
                 }, (e) => {
                     console.log(e)
@@ -58,6 +61,8 @@ class LoginPage extends Component {
                     this.setState({
                             invalidUser:true
                     })
+                }else if(e.err==="Not confirmed"){
+                    this.setState({confirmed: true})
                 }
                 }
             )
@@ -67,13 +72,13 @@ class LoginPage extends Component {
     
 
     render() {
-    const {email, password, invalidUser, requiredEmail, requiredPassword} = this.state
+    const {email, password, invalidUser, requiredEmail, requiredPassword, confirmed} = this.state
     const { data } = this.props.location
         return(
            <PageWrapper title='Log in - DForum'>
                 <div className={styles.center}>
                 {invalidUser && (<DangerTextBox text='Invalid email or password!' />)}
-                {data && (<WarninTextBox text='Please confirm your email!'/>)}
+                {(data || confirmed) && (<WarninTextBox text='Please confirm your email!'/>)}
                     <h1>Login</h1>
                             <section>
                                 <form onSubmit={this.handleSubmit}>

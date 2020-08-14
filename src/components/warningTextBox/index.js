@@ -2,7 +2,7 @@ import React from 'react'
 
 const WarningTextBox =({text}) =>{
     return(
-        <div className="alert alert-warning" role="alert">
+        <div id='textBox' className="alert alert-warning" role="alert">
             {text}
         </div>
     )
