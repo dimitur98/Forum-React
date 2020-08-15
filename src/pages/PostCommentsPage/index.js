@@ -81,6 +81,8 @@ class PostCommentsPage extends Component{
         const { author, post} = this.state
         const postId = this.props.match.params.postId
         const {loggedIn} = this.context
+        console.log('post',author.email)
+
         return(
             <PageWrapper title={`${post.name} comments - DForum`}>
                     <div className='container'>

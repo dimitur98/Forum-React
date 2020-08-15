@@ -16,7 +16,7 @@ module.exports = {
     get:{
         postsByCategory: (req,res,next) => {
             const {categoryId} = req.params
-            post.find({categoryId: categoryId}).populate('author').then((posts) => {
+            post.find({categoryId: categoryId}).sort({'createdOn':-1}).populate('author').then((posts) => {
                 console.log(posts)
                 res.send(posts)
             }).catch(next)
@@ -82,6 +82,15 @@ module.exports = {
             const totalVotes = p.upVotes.length - p.downVotes.length
             res.send({votes:totalVotes})
 
+        },
+        editPost: (req,res,next) => {
+            const {name, content} = req.body
+            const {postId} = req.params
+
+            post.findOneAndUpdate({_id: postId}, {name,content}).then((p)=> {
+                console.log(p)
+                res.send()
+            })
         }
 
     },

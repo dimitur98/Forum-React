@@ -34,6 +34,7 @@ class PostsByCategoryPage extends Component{
                     {...post}
                     refresh = {this.refresh}
                     testId = {counter}
+                    url = 'PostComments'
                 />
             )
         })

@@ -128,12 +128,12 @@ class RegisterPage extends Component{
                                     type="password"
                                     isPasswordsMatch = {this.isPasswordsMatch}
                                 />
-                                {!passwordsMatch && <DangerText text="Passwords don't match!"/>}
+                                {!passwordsMatch && <DangerText id='passwordsNoMatch' text="Passwords don't match!"/>}
                                 <br/>
                                 <ImgUploadWidget setImgUrl = {(imageUrl) => this.setImgUrl(imageUrl)}/>
                                 {imageUrl && <FontAwesomeIcon icon={faCheckCircle} />} 
                                 <br/>
-                                {requiredImageUrl && <DangerText text='Image is required!'/>} 
+                                {requiredImageUrl && <DangerText id='img' text='Image is required!'/>} 
                                 <SubmitBtn id='button'  name='Register'/>
                             </form>
                         </div>

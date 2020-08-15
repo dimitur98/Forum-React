@@ -39,7 +39,8 @@ class AccountPage extends Component{
                 <Post 
                     key = {post._id}
                     {...post}
-                    commentsCount = {0} 
+                    commentsCount = {0}
+                    url = 'EditPost' 
                 />
             )
         })       
@@ -56,13 +57,16 @@ class AccountPage extends Component{
                 <div className='container'>
                 <Aside />
                     <div className={styles['inner-container']}>
-                        {noPosts ? (<h1>You haven't got posts.</h1>) : this.renderPosts()}
+                        {noPosts ? (<h1 id='noPosts'>You haven't got posts.</h1>) : this.renderPosts()}
                         
                     </div>
                 </div>
             </PageWrapper>
         )
     }
+
 }
+AccountPage.contextType = UserContext
+
 
 export default AccountPage

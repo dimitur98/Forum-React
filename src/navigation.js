@@ -19,6 +19,7 @@ import ChangeAvatarPage from './pages/ChangeAvatarPage'
 import UserContext from './Context'
 import PrivacyPage from './pages/PrivacyPage'
 import ConfirmationPage from './pages/ConfirmationPage'
+import EditPostPage from './pages/EditPostPage'
 
 
 
@@ -57,6 +58,9 @@ class Navigation extends Component {
                         </Route>
                         <Route path="/ChangeAvatar" component = { ChangeAvatarPage }>
                             { loggedIn ? (<ChangeAvatarPage/>) :(<Redirect to='/Login'/>) }
+                        </Route>
+                        <Route path="/EditPost/:postId" component = { EditPostPage }>
+                            { loggedIn ? (<EditPostPage/>) :(<Redirect to='/Login'/>) }
                         </Route>
                         <Route path='/Privacy' component={PrivacyPage}/>
                         <Route path='/Confirm/:uuid/:userId' component={ConfirmationPage}/>

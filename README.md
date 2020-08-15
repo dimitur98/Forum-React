@@ -37,6 +37,7 @@ DForum is a site where you can create posts about everything. There are categori
 * /Account - user posts page
 * /ChangePassword - change password page
 * /ChangeAvatar - change avatar page
+* /EditPost - edit your post content and name
 * /Privacy - privacy policy for DForum
 # Setup
 ## Server

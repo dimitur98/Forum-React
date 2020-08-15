@@ -27,6 +27,9 @@ class ChangeAvatarPage extends Component{
             this.setState({defaultAvatar: true})
         }else{
             this.setState({defaultAvatar: false})
+            this.setState({
+                imageUrl: this.context.user.imageUrl
+            })
         }
        
     }
@@ -35,9 +38,7 @@ class ChangeAvatarPage extends Component{
 
     componentDidMount(){
         this.checkAvatar()
-        this.setState({
-            imageUrl: this.context.user.imageUrl
-        })
+        
     }
 
     render(){

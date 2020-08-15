@@ -26,8 +26,8 @@ const Category = (props) =>{
         <div className="col-md-4 media">
             <img src={props.imageUrl} className={styles.categoryImg} alt={props.name} />
             <div className="media-body">
-                <h5 data-test-id={`category-${props.testId}`} className="mt-0">
-                    <Link  to ={`/postsByCategory/${props.id}/${props.name}`} >
+                <h5  className="mt-0">
+                    <Link data-test-id={`category-${props.testId}`}  to ={`/postsByCategory/${props.id}/${props.name}`} >
                         {props.name}
                     </Link>
                     {admin && <DeleteBtn refresh = {props.refresh} type='category' id={props.id}/>}

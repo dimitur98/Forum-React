@@ -1,15 +1,17 @@
-import React, {useContext} from 'react'
-import {useHistory} from 'react-router-dom'
+import React, {Component} from 'react'
+import {withRouter} from 'react-router-dom'
 import FacebookLogin from 'react-facebook-login';
 import authenticate from '../../utils/authenticate'
 import UserContext from '../../Context'
 import styles from './index.module.css'
 
 
-const ServicesToLogIn = () => {
-    const history = useHistory()
-    const context = useContext(UserContext)
-    const responseFacebook = async (response) => {       
+class ServicesToLogIn extends Component {
+
+    static contextType = UserContext
+
+     responseFacebook = async (response) => { 
+         console.log(response)      
           fetch('http://localhost:9999/api/user/register', {
               method: 'POST',
               body: JSON.stringify({
@@ -27,32 +29,33 @@ const ServicesToLogIn = () => {
                     password: response.userID,
                     faceBook: true
                 }, (user) => {
-                    context.logIn(user)
-                    history.push('/')
+                    this.context.logIn(user)
+                    this.props.history.push('/')
                 }, (e) => {
                     console.log(e)
                 }
             )
           })
       }
-      const failFaceBook = (e) =>{
+       failFaceBook = (e) =>{
           console.log(e)
       }
-
-    return(
-        <div className={styles.center}>
-            <section>
-                <h4>Use another service to log in.</h4>
-                <hr />    
-                <FacebookLogin
-                    appId= {process.env.REACT_APP_APPID_FACEBOOK}
-                    fields="email,picture"
-                    callback={responseFacebook}
-                    onFailure = {failFaceBook} />      
-            </section>
-            
-        </div>
-    )
+    render(){
+        return(
+            <div className={styles.center}>
+                <section>
+                    <h4>Use another service to log in.</h4>
+                    <hr />    
+                    <FacebookLogin
+                        appId= {process.env.REACT_APP_APPID_FACEBOOK}
+                        fields="email,picture"
+                        callback={this.responseFacebook}
+                        onFailure = {this.failFaceBook} />      
+                </section>
+                
+            </div>
+        )
+    }
 }
 
-export default ServicesToLogIn
+export default withRouter(ServicesToLogIn)
