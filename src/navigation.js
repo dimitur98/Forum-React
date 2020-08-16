@@ -20,6 +20,7 @@ import UserContext from './Context'
 import PrivacyPage from './pages/PrivacyPage'
 import ConfirmationPage from './pages/ConfirmationPage'
 import EditPostPage from './pages/EditPostPage'
+import ErrorPage from './pages/ErrorPage'
 
 
 
@@ -64,6 +65,7 @@ class Navigation extends Component {
                         </Route>
                         <Route path='/Privacy' component={PrivacyPage}/>
                         <Route path='/Confirm/:uuid/:userId' component={ConfirmationPage}/>
+                        <Route component={ErrorPage}/>
                     </Switch>
                 </BrowserRouter>
             </Fragment>
